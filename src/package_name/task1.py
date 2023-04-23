@@ -1,18 +1,14 @@
 class Solution(object):
     def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: -> int
-        """
-        res = nums.pop(0)
-        if len(nums):
-            maxi = {res}
-            for num in nums:
-                res = max(num, res + num)
-                maxi.add(res)
-            return sorted(maxi)[-1]
-        return res
-
+        curr_sum = 0
+        max_sum = -1e8
+        for num in nums:
+            curr_sum += num
+            if curr_sum > max_sum:
+                max_sum = curr_sum
+            if curr_sum < 0:
+                curr_sum = 0
+        return max_sum
 
 class TestSearchInsert:
 
