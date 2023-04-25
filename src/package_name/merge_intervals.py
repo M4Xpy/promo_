@@ -25,36 +25,36 @@ class Solution(object):
         :type intervals: List[List[int]]
         :rtype: List[List[int]]
         """
-        intervals.sort(key=lambda pair: pair[0])
-        new_intrvls = []
-        frst, last = intervals.pop(0)
-        for _1, _2 in intervals:
-            if _1 in range(frst, -~last):
-                if _2 > frst:
-                    last = max(_2, last)
-            else:
-                new_intrvls.append([frst, last])
-                frst, last = _1, _2
-        new_intrvls.append([frst, last])
-        return new_intrvls
+        if len(intervals):
+            intervals = sorted(intervals, key=lambda x: x[0])
+            res = [intervals.pop(0)]
+
+            for first, last in intervals:
+                if first <= res[-1][1]:
+                    res[-1][1] = max(last, res[-1][1])
+                else:
+                    res.append([first, last])
+            return res
+        return intervals
+
+    # print(Solution().merge(
 
 
-# print(Solution().merge(
 #     [[1, 4], [2, 3]]
 # ))
 class TestSearchInsert:
 
-    # def test_1(self):
-    #     assert Solution().merge(intervals=[[1, 3], [2, 6], [8, 10], [15, 18]]
-    #                             ) == [[1, 6], [8, 10], [15, 18]]
-    #
-    # def test_same_last_1(self):
-    #     assert Solution().merge(intervals=[[1, 4], [4, 5]]
-    #                             ) == [[1, 5]]
-    #
-    # def test_zero_1(self):
-    #     assert Solution().merge(intervals=[[1, 4], [0, 4]]
-    #                             ) == [[0, 4]]
+    def test_1(self):
+        assert Solution().merge(intervals=[[1, 3], [2, 6], [8, 10], [15, 18]]
+                                ) == [[1, 6], [8, 10], [15, 18]]
+
+    def test_same_last_1(self):
+        assert Solution().merge(intervals=[[1, 4], [4, 5]]
+                                ) == [[1, 5]]
+
+    def test_zero_1(self):
+        assert Solution().merge(intervals=[[1, 4], [0, 4]]
+                                ) == [[0, 4]]
 
     def test_last_more_then_2(self):
         assert Solution().merge(intervals=[[1, 4], [2, 3]]
