@@ -6,34 +6,46 @@ filled with elements from 1 to n2 in spiral order.
 """
 
 
-class Solution:
-    # @return a list of lists of integer
+class Solution(object):
+    def generateMatrix(self, number):
+        """
+        :type number: int
+        :rtype: List[List[int]]
+        """
+        matrix = [[0 for _ in range(number)] for _ in range(number)]
+        value = 1
+        k = row = item = 0
 
-    def generateMatrix(self, n):
-        matrix = [[0 for _ in range(n)] for _ in range(n)]
-        top = left = 0
-        right = bottom = ~-n
-        num = 1
-
-        while left <= right and top <= bottom:
-            for TOP in range(left, -~right):
-                matrix[top][TOP] = num
-                num += 1
-            for RIGHT in range(-~top, bottom):
-                matrix[RIGHT][right] = num
-                num += 1
-            for BOTTOM in range(right, ~-left, -1):
-                if top < bottom:
-                    matrix[bottom][BOTTOM] = num
-                    num += 1
-            for LEFT in range(~-bottom, top, -1):
-                if left < right:
-                    matrix[LEFT][left] = num
-                    num += 1
-            top = left = -~left
-            right = bottom = ~-bottom
-
+        while value <= number ** 2:
+            matrix[row][item] = value
+            value += 1
+            if k % 4 == 0:
+                if item < number - k // 4 - 1:
+                    item += 1
+                else:
+                    row += 1
+                    k += 1
+            elif k % 4 == 1:
+                if row < number - 1 - k // 4:
+                    row += 1
+                else:
+                    item -= 1
+                    k += 1
+            elif k % 4 == 2:
+                if item > k // 4:
+                    item -= 1
+                else:
+                    row -= 1
+                    k += 1
+            elif k % 4 == 3:
+                if row > k // 4 + 1:
+                    row -= 1
+                else:
+                    item += 1
+                    k += 1
         return matrix
+
+
 
 
 print(Solution().generateMatrix(3))
