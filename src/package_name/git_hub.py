@@ -1,1 +1,1 @@
-github = 'ok'
+github = 'okko'
