@@ -3,15 +3,15 @@
 medium
 
 You are given an array of non-overlapping intervals intervals
-where intervals[i] = [starti, endi]
+where intervals[i] = [start_i, end_i]
 represent the start and the end
-of the ith interval and intervals is sorted in ascending order by starti.
+of the ith interval and intervals is sorted in ascending order by start_i.
 You are also given an interval newInterval = [start, end]
 that represents the start and end of another interval.
 
 Insert newInterval into intervals
 such that intervals is still sorted in ascending order
-by starti and intervals still does not have any overlapping intervals
+by start_i and intervals still does not have any overlapping intervals
 (merge overlapping intervals if necessary).
 
 Return intervals after the insertion.
@@ -25,16 +25,18 @@ class Solution(object):
         :type newInterval: List[int]
         :rtype: List[List[int]]
         """
-        _1, _2 = newInterval
-        output = []
-        for frm, to in intervals:
-            if frm in range(_1, _2 + 1) or to in range(_1, _2 + 1) or _1 in range(frm, to + 1) or _2 in range(frm,
-                                                                                                              to + 1):
-                _1, _2 = min(_1, frm), max(_2, to)
+        res, new = [], newInterval
+
+        for index, now in enumerate(intervals):
+            if now[1] < new[0]:
+                res.append(now)
+            elif now[0] > new[1]:
+                return res + [new] + intervals[index:]
             else:
-                output.append([frm, to])
-        output.append([_1, _2])
-        return sorted(output)
+                new[0] = min(new[0], now[0])
+                new[1] = max(new[1], now[1])
+
+        return res + [new]
 
 
 class TestSearchInsert:
@@ -42,6 +44,7 @@ class TestSearchInsert:
     def test_solo(self):
         assert Solution().insert(intervals=[[1, 5]], newInterval=[2, 3]
                                  ) == [[1, 5]]
+
     def test_1(self):
         assert Solution().insert(intervals=[[1, 3], [6, 9]], newInterval=[2, 5]) == [[1, 5], [6, 9]]
 
