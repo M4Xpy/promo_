@@ -1,0 +1,2265 @@
+# 3.9 Подвиг 6
+t = [["Скажи-ка", "дядя", "ведь", "не", "даром"],
+     ["Я", "Python", "выучил", "с", "каналом"],
+     ["Балакирев", "что", "раздавал?"]]
+a = input()
+print(a in str(t))
+
+# 5.1 Подвиг 7. Вводится натуральное (то есть, целое положительное) число (от трехзначного и более).
+# Найти произведение всех его цифр. Результат вывести на экран. Программу реализовать при помощи цикла while.
+# Sample Input: 821                     Sample Output: 16
+number = int(input())
+result = bool(number) * 1
+while number:
+        result *= number % 10
+        number //= 10
+print(result)
+
+mltpl, number = 1, list(map(int, input()))
+while number:
+    mltpl *= int(number.pop())
+print(mltpl)
+
+# 5.2  Подвиг 3. На каждой итерации цикла вводится целое число. Необходимо подсчитать произведение только положительных чисел,
+# до тех пор, пока не будет введено значение 0. Реализовать пропуск вычислений с помощью оператора continue,
+# а также использовать цикл while. Результат произведения вывести на экран.
+# Sample Input: 2
+# -1
+# 3
+# 2
+# -5
+# 7
+# 0
+# Sample Output:84
+
+sum = 1
+while sum:
+    number = int(input())
+    if number == 0:
+        if sum == 1:
+            sum = 0
+        break
+    elif number < 0:
+        continue
+    sum *= number
+print(sum)
+
+# 03 == str(x).rjust(2, "0") == f'{x:02}'03 == str(x).rjust(2, "0") == f'{x:02}'
+
+#5.4  Подвиг 1. Вводится строка. Необходимо найти все индексы фрагмента "ра" во введенной строке.
+# Вывести в строку через пробелы найденные индексы. Если этот фрагмент ни разу не будет найден, то вывести значение -1.
+# Sample Input: Барабанщик бил бой в барабан    Sample Output: 2 23
+# https://stepik.org/lesson/567040/step/2?thread=solutions&unit=561314
+reply = input()
+print(reply.find("ра"), end=' ')
+for _ in range(reply.count("ра") - 1):
+    reply = reply.replace("ра", '  ', 1)
+    print(reply.find("ра"), end=' ')
+
+reply = input()
+print(*[id
+        for id in range(len(reply) - 1)
+        if "ра" == reply[id] + reply[id + 1]]
+       or [-1])
+
+# 5.4  подвиг 3. В виде строки записано арифметическое выражение, например: "10 + 25 - 12"
+# Необходимо выполнить вычисление и результат отобразить на экране.
+# Полагается, что в качестве арифметических операций здесь используется только сложение (+) и вычитание (-),
+# а в качестве операндов - целые неотрицательные числа. Следует учесть,
+# что эти операторы могут быть записаны как с пробелами, так и без них.
+# Sample Input: 10+25 - 12
+# Sample Output: 23
+
+print(sum(list(map(int, input().replace(' ', '').replace("+", " +").replace('-', ' -').split()))))
+
+########## 5.8   Подвиг 6
+
+number = int(input())
+array = [[row for item in range(number)] for row in range(number)]
+for value in array:
+    print(*value)
+
+number = int(input())
+array = [[row] * number for row in range(number)]
+for value in array:
+    print(*value)
+
+number = int(input())
+[print(*[i] * number) for i in range(number)]
+
+[[print(*[item] * row) for item in range(row)] for row in [int(input())]]
+
+# 5.6 Большой подвиг 7. Вводится список целых чисел в одну строку через пробел.
+# Необходимо выполнить его сортировку по возрастанию (неубыванию) методом всплывающего пузырька.
+# Идея алгоритма проста и показана на рисунке ниже.
+# При первом проходе перебираем все соседние пары элементов и если значение предыдущего элемента (слева) больше значения следующего (справа),
+# то они меняются местами. (На рисунке 3 и 2 меняются местами). Следующая пара - это 3 и 6.
+# Они уже выстроены по возрастанию, поэтому ничего не делаем и переходим к следующей паре 6 и -1.
+# Меняем значения местами и видим, что на последнем месте находится максимальное значение 6, что нам и нужно.
+# При втором проходе делаем все то же самое, но доходим до предпоследнего элемента, так как последнее значение 6 уже отсортировано.
+# На третьем проходе исключаем уже последние два элемента и так далее.
+# То есть, в этом алгоритме достаточно сделать N-1 проходов, где N - длина списка.
+# Вот идея алгоритма сортировки всплывающего пузырька. Реализуйте его для вводимого списка целых чисел.
+# Результат выведите в виде списка чисел одну строку через пробел.  Sample Input: 4 5 2 0 6 3 -56 3 -1    Sample Output: -56 -1 0 2 3 3 4 5 6
+lst = list(map(int, input().split()))
+for a in range(len(lst) ):
+    for b in range(len(lst) - a - 1):
+        if lst[b] > lst[b + 1]:
+            lst[b + 1], lst[b] = lst[b], lst[b + 1]
+print(*lst)
+
+# 6.2 Подвиг 6. Вводятся данные в формате:# Дни рождений и имена могут повторяться.
+# На их основе сформировать словарь и вывести его в формате (см. пример ниже):
+"""
+3 Сергей
+5 Николай
+4 Елена
+7 Владимир
+5 Юлия
+4 Светлана
+"""
+# Sample Output:
+# 3: Сергей
+# 5: Николай, Юлия
+# 4: Елена, Светлана
+# 7: Владимир
+#https://stepik.org/lesson/567047/step/7?thread=solutions&unit=561321
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+d = {}
+for key, value in lst_in:
+    d[key] = d.get(key, []) + [value]
+[print(key, ", ".join(value)) for key, value in d.items()]
+
+[print(f"{k}: {', '.join(v)}") for k, v in d.items()]
+
+# # 6.6 Подвиг 2. Вводится строка со списком оценок, например: 2 неудовлетворительно удовлетворительно хорошо отлично
+# # Первая цифра - это числовое значение первой оценки. Остальные оценки имеют возрастающие на 1 числа.
+# # С помощью генератора словарей необходимо сформировать словарь d, где ключами будут выступать числа, а значениями - слова.
+# # Например:  d = {2: 'неудовлетворительно', 3: 'удовлетворительно', 4: 'хорошо', 5: 'отлично'}
+# # Вывести на экран значение сформированного словаря с ключом 4.
+# # Sample Input: 1 ужасно неудовлетворительно удовлетворительно прилично отлично
+# # Sample Output: прилично
+#https://stepik.org/lesson/567051/step/3thread=solutions&unit=561325
+start, *reply = input().split()
+d = dict((int(start) + id, reply[id]) for id  in range(len(reply) ))
+
+dd = {key: value for key, value in enumerate(reply, start=int(start))}
+
+ddd = dict(enumerate(reply, int(start)))
+
+# Подвиг 7. Вводится список вещественных чисел. С помощью list comprehension сформировать список,
+# состоящий из элементов введенного списка, имеющих четные индексы
+# (то есть, выбрать все элементы с четными индексами). Результат вывести на экран в одну строку через пробел.
+# Sample Input:  8.5 11.3 1.0 -4.5 11.34 6.45
+# Sample Output: 8.5 1.0 11.34
+
+print(*[number for index, number in enumerate(list(map(float, input().split()))) if index % 2 == 0])
+
+print(*[float(number) for number in input().split()][::2])
+
+print(*input().split()[:: 2])
+
+# Подвиг 8. Вводятся два списка целых чисел одинаковой длины каждый с новой строки.
+# С помощью list comprehension сформировать третий список, состоящий из суммы соответствующих пар чисел введенных списков.
+# Результат вывести на экран в одну строку через пробел.
+# Sample Input: 1 2 3  4  5
+#               6 7 8  9  10
+# Sample Output: 7 9 11 13 15
+up_list = list(map(int, input().split()))
+low_list = list(map(int, input().split()))
+print(*[up_list[index] + low_list[index]
+        for index in range(min(len(up_list), len(low_list)))],
+      *up_list[len(up_list) + 1 - len(low_list):] if len(up_list) > len(low_list)
+      else low_list[len(low_list) + 1 - len(up_list):] if len(low_list) > len(up_list)
+      else ''.lstrip())
+
+print(*[up_list[index] + low_list[index] for index in range(len(up_list))])
+
+##    [[1, 2]] == [_ for row in [[1], [2]] for _ in row]
+
+# Подвиг 9. Вводится список в формате:
+#  <город 1> <численность населения 1> <город 2> <численность населения 2> ... <город N> <численность населения N>
+# Необходимо с помощью list comprehension сформировать список lst, содержащий вложенные списки из пар:
+# <город> <численность населения>
+#  Численность населения - целое число в тыс. человек. Вывести результат на экран в виде списка командой:
+#  print(lst)
+# Sample Input:     Москва 15000 Уфа 1200 Самара 1090 Казань 1300
+# Sample Output:    [['Москва', 15000], ['Уфа', 1200], ['Самара', 1090], ['Казань', 1300]]
+
+# data = input().split()
+# hub = []
+# cities_population = []
+# for index in range(int(len(data))):
+#     if index % 2:
+#         hub.append(int(data[index]))
+#         hub.insert(-1, data[index - 1])
+#         cities_population.append(hub)
+#         hub = []
+# print(cities_population)
+
+data = input().split()
+cities_population = [[data[index], int(data[index + 1])] for index in range(0, len(data), 2)]
+print(cities_population)
+
+print([[city, int(next(data))] for data in [iter(input().split())] for city in data])
+# == #
+data = iter(input().split())
+cities_population = []
+for city in data:
+    cities_population.append([city, int(next(data))])
+print(cities_population)
+
+# Подвиг 1. Вводится двумерный список в виде таблицы целых чисел (см. пример ниже).
+# С помощью list comprehension преобразовать двумерный список в одномерный так,
+# чтобы значения элементов шли в обратном порядке. Результат отобразить в виде строки из чисел,
+# записанных через пробел.
+# Sample Input:
+# 1 2 3 4
+# 5 6 7 8
+# 9 8 7 6
+# 5 4 3 2
+# Sample Output: 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2 1
+import sys
+
+# считывание списка из входного потока
+s = sys.stdin.readlines()
+lst_in = [list(map(int, x.strip().split())) for x in s]
+
+print(*[value for row in lst_in for value in row][::-1])
+
+# Подвиг 2. Вводится список целых чисел в строку через пробел.
+# С помощью list comprehension сформировать из них двумерный список lst размером N x N (квадратную таблицу чисел).
+# Гарантируется, что из набора введенных чисел можно сформировать квадратную матрицу (таблицу).
+# Результат отобразить в виде списка командой:   print(lst)
+# Sample Input:1 2 3 4 5 6 7 8 9
+# Sample Output:[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+input_list = list(map(int, input().split()))
+lsts_qntt = int(len(input_list) ** 0.5)
+input_list = [input_list[x:x + lsts_qntt] for x in range(0, len(input_list), lsts_qntt)]
+print(input_list)
+
+input_list = list(map(int, input().split()))
+lsts_qntt = int(len(input_list) ** 0.5)
+input_list_itrtr = iter(input_list)
+input_list = [[next(input_list_itrtr) for y in range(lsts_qntt)] for x in range(lsts_qntt)]
+print(input_list)
+
+input_list = list(map(int, input().split()))
+lsts_qntt = int(len(input_list) ** .5)
+input_list = [[input_list[lsts_qntt * i + j] for j in range(lsts_qntt)] for i in range(lsts_qntt)]
+print(input_list)
+
+input_list = input().split()
+lsts_qntt = int(len(input_list) ** 0.5)
+input_list = [[int(input_list.pop(0)) for i in range(lsts_qntt)] for j in range(lsts_qntt)]
+print(input_list)
+
+# Необходимо преобразовать его в двумерный (вложенный) список lst, где каждая строка представляется списком из слов
+# (слова разделяются пробелом), но сохранять слова только длиной более трех символов.
+# Решить данную задачу с использованием list comprehension. Результат отобразить с помощью команды: print(lst)
+# Sample Output: [['Скажи-ка,', 'дядя,', 'ведь', 'даром'], ['Python', 'выучил', 'каналом'],
+# ['Балакирев', 'раздавал?'], ['Ведь', 'были', 'заданья', 'боевые,'], ['говорят,', 'какие!'],
+# ['Недаром', 'помнит', 'Россия'], ['рубили', 'тогда!']]
+text = ["– Скажи-ка, дядя, ведь не даром",
+        "Я Python выучил с каналом",
+        "Балакирев что раздавал?",
+        "Ведь были ж заданья боевые,",
+        "Да, говорят, еще какие!",
+        "Недаром помнит вся Россия",
+        "Как мы рубили их тогда!"
+        ]
+result = []
+new_string = []
+for strings in text:
+    for word in strings.split():
+        if len(word) > 3:
+            new_string.append(word)
+    result.append(new_string)
+    new_string = []
+print(result)
+
+lst = [[word for word in strings.split() if len(word) > 3] for strings in text]
+print(lst)
+
+# Подвиг 4. Повторите задачу с транспонированием прямоугольной матрицы с помощью list comprehension,
+# изложенной в видео-уроке к этой практике. На вход поступает таблица целых чисел,
+# на выходе нужно отобразить эту же таблицу в транспонированном виде (строки заменяются на столбцы), используя команду:
+# for row in A:
+#     print(*row)
+# где A - транспонированный двумерный список. Желательно сделать эту задачу не пересматривая видео.
+# Sample Input:
+# 1 2 3
+# 4 5 6
+# 7 8 9
+# 5 4 3
+# Sample Output:
+# 1 4 7 5
+# 2 5 8 4
+# 3 6 9 3
+import sys
+
+s = sys.stdin.readlines()
+matrix = [list(map(int, x.strip().split())) for x in s]
+matrix = [[row[value] for row in matrix] for value in range(len(matrix[0]))]
+for row in matrix:
+    print(*row)
+[print(*row) for row in matrix]
+
+[print(*[row[value] for row in matrix]) for value in range(len(matrix[0]))]
+
+######################################################################
+x = dict([[1, 'one'], [2, 'two'], [3, 'three']])
+print(x)
+
+# Подвиг 3. Вводятся данные в формате ключ=значение в одну строчку через пробел.
+# Значениями здесь являются целые числа (см. пример ниже).
+# Необходимо на их основе создать словарь d с помощью функции dict() и вывести его на экран командой: print(*sorted(d.items()))
+# Sample Input: one=1 two=2 three=3
+# Sample Output:  ('one', 1) ('three', 3) ('two', 2)
+reply = list(map(str, input().replace('=', ' ').split()))
+dictionary = {}
+for _key in range(0, len(reply), 2):
+    dictionary[reply[_key]] = int(reply[_key + 1])
+print(*sorted(dictionary.items()))
+
+lst = [[int(value) if value.isdigit() else value for value in reply.split("=")] for reply in input().split()]
+dct = dict(lst)
+print(*sorted(dct.items()))
+
+dictionary = dict()
+for value in input().split():
+    dictionary[value.split('=')[0]] = int(value.split('=')[1])
+print(*sorted(dictionary.items()))
+
+# Подвиг 5. Вводятся данные в формате ключ=значение в одну строчку через пробел.
+# Необходимо на их основе создать словарь, затем проверить, существуют ли в нем ключи со значениями:
+# 'house', 'True' и '5' (все ключи - строки). Если все они существуют, то вывести на экран ДА, иначе - НЕТ.
+# Sample Input: вологда=город house=дом True=1 5=отлично 9=божественно              Sample Output:ДА
+reply = input().replace('=', ' ').split()
+dictionary = {}
+for id in range(0, len(reply), 2):
+    dictionary[reply[id]] = reply[id + 1]
+print("ДА" if 'house' in dictionary and 'True' in dictionary and '5' in dictionary else 'НЕТ')
+print(('НЕТ', 'ДА')[all(['house' in dictionary, 'True' in dictionary, '5' in dictionary])])
+
+check_values = ['house', 'True', '5']
+for checker in check_values:
+    if checker not in dictionary:
+        print('НЕТ')
+        break
+else:
+    print('ДА')
+
+# Подвиг 6. Вводятся данные в формате ключ=значение в одну строчку через пробел.
+# Необходимо на их основе создать словарь d, затем удалить из этого словаря ключи 'False' и '3',
+# если они существуют. Ключами и значениями словаря являются строки.
+# Вывести полученный словарь на экран командой:  print(*sorted(d.items()))
+# Sample Input: лена=имя дон=река москва=город False=ложь 3=удовлетворительно True=истина
+# Sample Output: ('True', 'истина') ('дон', 'река') ('лена', 'имя') ('москва', 'город')
+reply = input().replace('=', ' ').split()
+dictionary = {}
+for id in range(0, len(reply), 2):
+    dictionary[reply[id]] = reply[id + 1]
+for key in dictionary:
+    if key == 'False':
+        del dictionary[key]
+        break
+for key in dictionary:
+    if key == '3':
+        del dictionary[key]
+        break
+
+print(*sorted(dictionary.items()))
+
+dictionary = dict([pairs.split('=') for pairs in input().split()])
+del_values = ['False', '3']
+for value in del_values:
+    if value in dictionary:
+        del dictionary[value]
+print(*sorted(dictionary.items()))
+
+dictionary = dict(pairs.split('=') for pairs in input().split())
+for value in del_values:
+    dictionary.pop(value, 'Да не очень то и надо')
+print(*sorted(dictionary.items()))
+
+d = {pairs.split('=')[0]: pairs.split('=')[1] for pairs in input().split() if pairs.split('=')[0] not in ['False', '3']}
+print(*sorted(d.items()))
+
+# Подвиг 7. Вводятся номера телефонов в одну строчку через пробел с разными кодами стран: +7, +6, +2, +4 и т.д.
+# Необходимо составить словарь d, где ключи - это коды +7, +6, +2 и т.п.,
+# а значения - список номеров (следующих в том же порядке, что и во входной строке) с соответствующими кодами.
+# Полученный словарь вывести командой: print(*sorted(d.items()))
+#  Sample Input: +71234567890 +71234567854 +61234576890 +52134567890 +21235777890 +21234567110 +71232267890
+# Sample Output:('+2', ['+21235777890', '+21234567110']) ('+5', ['+52134567890']) ('+6', ['+61234576890'])
+# ('+7', ['+71234567890', '+71234567854', '+71232267890'])
+in_data = input().split()
+dictionary = {}
+for number in in_data:
+    key = number[0:2]
+    if key in dictionary:
+        dictionary[key] += [number]  # dictionary[key].append(number)
+    else:
+        dictionary[key] = [number]
+print(*sorted(dictionary.items()))
+
+in_data = input().split()
+dictionary = {key[:2]: [number for number in in_data if number[:2] == key[:2]] for key in in_data}
+print(*sorted(dictionary.items()))
+
+# Необходимо создать словарь d, где ключами будут имена, а значениями - список номеров телефонов для этого имени.
+# Обратите внимание, что одному имени может принадлежать несколько разных номеров. Полученный словарь вывести командой:
+# Sample Input: +71234567890 Сергей
+# +71234567810 Сергей
+# +51234567890 Михаил
+# +72134567890 Николай
+# Sample Output: ('Михаил', ['+51234567890']) ('Николай', ['+72134567890']) ('Сергей', ['+71234567890', '+71234567810'])
+import sys
+
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+dictionary = {}
+
+# for line in lst_in:
+#     for value in line.split(" "):
+#         key = line.split(" ")[1]
+#         if key in dictionary:
+#             dictionary[key] += [line.split(" ")[0]]
+#             break
+#         else:
+#             dictionary[key] = [line.split(" ")[0]]
+#             break
+
+for line in lst_in:
+    value, key = line.split()
+    if key in dictionary:
+        dictionary[key] += [value]
+    else:
+        dictionary[key] = [value]
+
+print(*sorted(dictionary.items()))
+
+lst_in = [line.split() for line in list(map(str.strip, sys.stdin.readlines()))]
+dictionary = dict([(line[1], [value[0] for value in lst_in if line[1] == value[1]]) for line in lst_in])
+print(*sorted(dictionary.items()))
+
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+dictionary = {key.split()[1]: [value.split()[0]
+                               for value in lst_in
+                               if value.split()[1] == key.split()[1]]
+              for key in lst_in}
+print(*sorted(dictionary.items()))
+
+# Подвиг 9. Пользователь вводит в цикле целые положительные числа, пока не введет число 0.
+# Для каждого числа вычисляется квадратный корень (с точностью до сотых) и значение выводится на экран (в столбик).
+# С помощью словаря выполните кэширование данных так,
+# чтобы при повторном вводе того же самого числа результат не вычислялся, а бралось ранее вычисленное значение из словаря.
+# При этом на экране должно выводиться:
+# 1.0
+# 1.41
+# 1.73
+# значение из кэша: 1.73
+# значение из кэша: 1.41
+# 2.0
+# Sample Input:
+# 1
+# 2
+# 3
+# 3
+# 2
+# 4
+# 0
+number = int(input())
+dictionary, outputs = {}, []
+while number:
+    if number in dictionary:
+        print(f'значение из кэша: {dictionary[number]}')
+    else:
+        dictionary[number] = round(number ** 0.5, 2)
+        print(dictionary[number])
+    number = int(input())
+
+# Подвиг 10. Тестовый веб-сервер возвращает HTML-страницы по URL-адресам (строкам).
+# На вход программы поступают различные URL-адреса. Если адрес пришел впервые, то на экране отобразить строку (без кавычек):
+# "HTML-страница для адреса <URL-адрес>"
+# Если адрес приходит повторно, то следует взять строку "HTML-страница для адреса <URL-адрес>" из словаря и вывести на экран сообщение (без кавычек):
+# "Взято из кэша: HTML-страница для адреса <URL-адрес>"
+# Sample Input:
+# ustanovka-i-zapusk-yazyka
+# ustanovka-i-poryadok-raboty-pycharm
+# peremennyye-operator-prisvaivaniya-tipy-dannykh
+# arifmeticheskiye-operatsii
+# ustanovka-i-poryadok-raboty-pycharm
+# Sample Output:
+# HTML-страница для адреса ustanovka-i-zapusk-yazyka
+# HTML-страница для адреса ustanovka-i-poryadok-raboty-pycharm
+# HTML-страница для адреса peremennyye-operator-prisvaivaniya-tipy-dannykh
+# HTML-страница для адреса arifmeticheskiye-operatsii
+# Взято из кэша: HTML-страница для адреса ustanovka-i-poryadok-raboty-pycharm
+import sys
+
+dictionary = {}
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+for line in lst_in:
+    if line in dictionary:
+        print(f'Взято из кэша: HTML-страница для адреса {line}')
+        dictionary[line] += line
+    else:
+        dictionary[line] = line
+        print(f'HTML-страница для адреса {line}')
+
+# 6.2 Подвиг 3. Вводится строка из русских букв и символов пробела. Необходимо ее закодировать азбукой Морзе,
+# где каждой букве ставится в соответствие код из точки и тире.
+# После каждой закодированной буквы должен стоять пробел (символ окончания кода буквы).
+# После последнего кода пробела быть не должно (в конце строки).
+# Коды азбуки Морзе приведены ниже для русского алфавита и символа пробела:
+
+# Sample Input: Сергей Балакирев             Sample Output: ... . .-. --. . .--- -...- -... .- .-.. .- -.- .. .-. . .--
+morze = {"А": ".-", "Б": "-...", "В": ".--", "Г": "--.", "Д": "-..", "Е": ".", "Ж": "...-",
+         "З": "--..", "И": "..", "Й": ".---", "К": "-.-", "Л": ".-..", "М": "--", "Н": "-.",
+         "О": "---", "П": ".--.", "Р": ".-.", "С": "...", "Т": "-", "У": "..-", "Ф": "..-.",
+         "Х": "....", "Ц": "-.-.", "Ч": "---.", "Ш": "----", "Щ": "--.-", "Ъ": "--.--", "Ы": "-.--",
+         "Ь": "-..-", "Э": "..-..", "Ю": "..--", "Я": ".-.-", " ": "-...-"}
+print(*[morze.get(sign.upper()) for sign in input()])
+
+mrz = "А    .-	М    --	Ш    ---- Б    -...	Н    -.	Щ    --.- В    .--	О    ---	Ъ    --.-- Г    --.	П    .--.	Ы    -.-- Д    -..	Р    .-.	Ь    -..- Е . (Ё)    .	С    ...	Э    ..-.. Ж    ...-	Т    -	Ю    ..-- З    --..	У    ..-	Я    .-.- И    ..	Ф    ..-. Й    .---	Х    .... К    -.-	Ц    -.-. Л    .-..	Ч    ---.".split()
+mrz_dctnr = {v: mrz[i + 1] for i, v in enumerate(mrz) if i % 2 == 0}
+mrz_dctnr[' '] = '-···-'
+print(*[mrz_dctnr.get(sign) for sign in input().upper()])
+
+# 6.2  Подвиг 4. Имеется закодированная строка с помощью азбуки Морзе. Коды разделены между собой пробелом.
+# Необходимо ее раскодировать, используя азбуку Морзе из предыдущего занятия. Полученное сообщение (строку) вывести на экран.
+# Sample Input: .-- ... . -...- .-- . .-. -. ---    Sample Output:все верно
+cryptogram = list(input().split())
+for sign in cryptogram:
+    for key, value in morze.items():
+        if value == sign:
+            print(key.lower(), end="")
+
+[print(key.lower(), end='')
+ for sign in cryptogram
+ for key, value in morze.items()
+ if value == sign]
+
+# 6.2 Подвиг 5. Вводится список целых чисел в одну строчку через пробел. С помощью словаря выделите только уникальные
+# (не повторяющиеся) введенные значения и, затем, сформируйте список из уникальных чисел.
+# Выведите его на экран в виде набора чисел, записанных через пробел. Sample Input: 8 11 -4 5 2 11 4 8 Sample Output:8 11 -4 5 2 4
+print(*dict.fromkeys(input().split()))
+
+# 6.2 Подвиг 6. Вводятся данные в формате: Дни рождений и имена могут повторяться.
+# На их основе сформировать словарь и вывести его в формате (см. пример ниже):
+# Sample Input: 3 Сергей
+# 5 Николай
+# 4 Елена
+# 7 Владимир
+# 5 Юлия
+# 4 Светлана
+# Sample Output: 3: Сергей
+# 5: Николай, Юлия
+# 4: Елена, Светлана
+# 7: Владимир
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+names = dict()
+for pair in lst_in:
+    key, value = pair.split()
+    if key in names:
+        names[key] += ', '
+        names[key] += value
+    else:
+        names[key] = value
+for key, value in names.items():
+    print(f'{key}: {value}')
+
+import sys
+lst_in, names = list(map(str.split, sys.stdin.readlines())), {}
+for key, value in lst_in:
+    names[key] = names.get(key, []) + [value]
+[print(f"{key}: {', '.join(value)}") for key, value in names.items()]
+
+# 6.2 Подвиг 7. Имеется словарь с наименованиями предметов и их весом (в граммах):
+# Сергей собирается в поход и готов взвалить на свои хрупкие плечи максимальный вес в N кг (вводится с клавиатуры).
+# Он решил класть в рюкзак предметы в порядке убывания их веса (сначала самые тяжелые, затем, все более легкие) так,
+# чтобы их суммарный вес не превысил значения N кг. Все предметы даны в единственном экземпляре.
+# Выведите список предметов (в строчку через пробел), которые берет с собой Сергей в порядке убывания их веса.
+#  Sample Input: 10 Sample Output:палатка брезент удочка брюки пила карандаш спички
+things = {'карандаш': 20, 'зеркальце': 100, 'зонт': 500, 'рубашка': 300,
+          'брюки': 1000, 'бумага': 200, 'молоток': 600, 'пила': 400, 'удочка': 1200,
+          'расческа': 40, 'котелок': 820, 'палатка': 5240, 'брезент': 2130, 'спички': 10}
+weight = 1000 * int(input()) + 1
+for key, value in sorted(things.items(), key=lambda item: -item[1]):
+    if weight > value:
+        print(f'{key}', end=" ")
+        weight -= value
+
+# 6.3 Подвиг 5. Вводятся названия городов в одну строку через пробел. На их основе формируется кортеж.
+# Если в этом кортеже присутствует город "Ульяновск", то этот элемент следует удалить (создав новый кортеж).
+# Результат вывести на экран в виде строки с названиями городов через пробел.
+print(*(tuple(input().replace('Ульяновск', '').split())))
+
+cities = tuple(input().split())
+
+new_cities = tuple(city for city in cities if city != 'Ульяновск')
+
+if "Ульяновск" in cities:
+    idx = cities.index("Ульяновск")
+    cities = cities[:idx] + cities[idx+1:]
+
+if 'Ульяновск' in cities:
+    new_cities = list(cities)
+    new_cities.remove('Ульяновск')
+    new_cities = tuple(new_cities)
+
+print(*new_cities)
+
+# 6.3  Подвиг 6. Вводятся имена студентов в одну строчку через пробел. На их основе формируется кортеж.
+# Отобразите на экране все имена из этого кортежа, которые содержат фрагмент "ва" (без учета регистра).
+# Имена выводятся в одну строчку через пробел в нижнем регистре (малыми буквами).
+# Sample Input: Петя Варвара Венера Василиса Василий Федор   Sample Output:варвара василиса василий
+
+print(*[name.lower() for name in tuple(input().split()) if "ва" in name.lower()])
+
+# 6.3  Подвиг 7. Вводятся целые числа в одну строку через пробел. На их основе формируется кортеж.
+# Необходимо создать еще один кортеж с уникальными (не повторяющимися) значениями из первого кортежа.
+# Результат отобразите в виде списка чисел через пробел. Sample Input: 8 11 -5 -2 8 11 -5  Sample Output:8 11 -5 -2
+set_numbers = ()
+for number in tuple(map(int, input().split())):
+    if number not in set_numbers:
+        set_numbers += (number, )
+print(*set_numbers)
+
+reply = tuple(map(int, input().split()))
+set_numbers = tuple(dict.fromkeys(reply))
+print(*set_numbers)
+
+# 6.3 Подвиг 8. Вводятся целые числа в одну строку через пробел. На их основе формируется кортеж.
+# Необходимо найти и вывести все индексы неуникальных (повторяющихся) значений в этом кортеже.
+# Результат отобразите в виде строки чисел, записанных через пробел. Sample Input:5 4 -3 2 4 5 10 11   Sample Output:0 1 4 5
+reply = tuple(input().split())
+repeat_values = tuple(index for index, value in enumerate(reply) if reply.count(value) > 1)
+print(*repeat_values)
+
+reply = tuple(input().split())
+for index, value in enumerate(reply):
+    if reply.count(value) > 1:
+        print(index, end=' ')
+
+# 6.3 Подвиг 9. Имеется двумерный кортеж, размером 5 x 5 элементов:Вводится натуральное число N (N < 5).
+# Необходимо на основе кортежа t сформировать новый аналогичный кортеж t2 размером N x N элементов.
+# Результат вывести на экран в виде таблицы чисел. Sample Input:3     Sample Output:
+# 1 0 0
+# 0 1 0
+# 0 0 1
+tpl = ((1, 0, 0, 0, 0),
+       (0, 1, 0, 0, 0),
+       (0, 0, 1, 0, 0),
+       (0, 0, 0, 1, 0),
+       (0, 0, 0, 0, 1))
+reply = int(input())
+
+result = ()
+line = ()
+for row in range(reply):
+    for index in range(reply):
+        line += tpl[row][index],
+    result += line,
+    print(*line)
+    line = ()
+
+result = tuple(tpl[i][:reply] for i in range(reply))
+for i in result:
+    print(*i)
+
+# 6.3 Sample Input: Главная home
+# Python learn-python
+# Java learn-java
+# PHP learn-php
+# Sample Output: (('Главная', 'home'), ('Python', 'learn-python'), ('Java', 'learn-java'), ('PHP', 'learn-php'))
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+
+menu = ()
+pair_hub = ()
+for pair in lst_in:
+    for index, leter in enumerate(pair):
+        if leter == " ":
+            pair_hub += pair[:index], pair[index + 1:]
+            menu += pair_hub,
+            pair_hub = ()
+
+menu = tuple(tuple(pair.split()) for pair in lst_in)
+
+menu = ()
+for pair in lst_in:
+    menu += tuple(pair.split()),
+
+print(menu)
+
+# 6.4 Подвиг 7. В аккаунте youtube Сергея прокомментировали очередное видео. Некоторые посетители оставляли несколько комментариев.
+# Требуется по списку комментариев определить уникальное число комментаторов. Комментарии поступают на вход программы в формате:
+# # Sample Output:4   Sample Input:
+# EvgeniyK: спасибо большое!
+# LinaTroshka: лайк и подписка!
+# Sergey Karandeev: крутое видео!
+# Евгений Соснин: обожаю
+# EvgeniyK: это повтор?
+# Sergey Karandeev: нет, это новое видео
+print(len(set(line[0] for line in open(0))))
+
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+jornal = {}
+for pair in lst_in:
+    key, value = pair.split(':')
+    if key in jornal:
+        jornal[key] += [value]
+    else:
+        jornal[key] = [value]
+print(len(jornal))
+
+#Подвиг 8. Пользователь с клавиатуры вводит названия городов, пока не введет букву q. Определить общее уникальное число городов,
+# которые вводил пользователь. На экран вывести это число. Из коллекций при реализации программы использовать только множества.
+# Уфа
+# Москва
+# Тверь
+# Екатеринбург
+# Томск
+# Уфа
+# Москва
+# q
+# Sample Output: 5
+print(len(set(iter(input, 'q'))))
+
+print(len(set(i for i in iter(input, 'q'))))
+
+reply_set = set()
+reply = input()
+while reply != 'q':
+    reply_set.add(reply)
+    reply = input()
+print(len(reply_set))
+
+# 6.5 Подвиг 1. Вводятся два списка целых чисел каждый с новой строки (в строке наборы чисел через пробел).
+# Необходимо выбрать и отобразить на экране уникальные числа, присутствующие и в первом и во втором списках одновременно.
+# Результат выведите на экран в виде строки чисел, записанных по возрастанию через пробел,
+# # Sample Output: -2 11 15  Sample Input:
+# 8 11 12 15 -2
+# 4 11 10 15 -5 1 -2
+nmbrs_lst_1 = set(list(map(int, input().split())))
+nmbrs_lst_2 = set(list(map(int, input().split())))
+print(*sorted(nmbrs_lst_1 & nmbrs_lst_2))
+
+print(*sorted(set(list(map(int, input().split()))) & set(list(map(int, input().split())))))
+
+print(*sorted(set(input().split()) & set(input().split()), key=int))
+
+# 6.5 Подвиг 4. Вводятся два списка городов каждый с новой строки (в строке названия через пробел).
+# Необходимо сравнить их между собой на равенство по уникальным (не повторяющимся) городам.
+# Если списки содержат одни и те же уникальные города, то вывести на экран ДА, иначе - НЕТ.
+## Sample Output: ДА Sample Input:
+# Москва Тверь Уфа Казань Уфа Москва
+# Уфа Тверь Москва Казань
+city_list_1 = input().split()
+city_list_2 = input().split()
+print(['НЕТ', 'ДА'][sorted(set(city_list_1)) == sorted(set(city_list_2))])
+print('ДА' if sorted(set(city_list_1)) == sorted(set(city_list_2)) else 'НЕТ')
+print(['ДА','НЕТ'][len(set(city_list_1) ^ set(city_list_2))])
+
+# 6.5 Подвиг 5. Вводится список оценок студента - его ответов у доски по предмету "Информатика" в виде чисел от 2 до 5 в одну строку через пробел.
+# Если студент имеет хотя бы одну двойку, то он не допускается до экзамена. Определить на основе введенного списка, допущен ли студент.
+# Если допущен, то вывести слово ДОПУЩЕН, иначе - НЕ ДОПУЩЕН. При реализации задачи используйте множество для определения наличия двойки.
+# Sample Input: 3 4 4 5 2 3     Sample Output: НЕ ДОПУЩЕН
+assmnts = list(map(int, input().split()))
+print('ДОПУЩЕН' if sorted(set(assmnts))[0] > 2 else 'НЕ ДОПУЩЕН')
+print('НЕ ' * ('2' in set(assmnts)) + 'ДОПУЩЕН')
+print('НЕ ДОПУЩЕН' if '2' in set(assmnts) else 'ДОПУЩЕН')
+print(['', 'НЕ ']['2' in set(assmnts)] + 'ДОПУЩЕН')
+
+# 6.5 Подвиг 6. Вводятся два списка городов каждый с новой строки (в строке названия через пробел),
+# которые объехал Сергей в 1-й и 2-й годы своего путешествия по России.
+# Требуется определить, включал ли его маршрут во 2-й год все города 1-го года путешествия?
+# Если это так, то вывести ДА, иначе - НЕТ.  # Sample Output: ДА    Sample Input:
+# Москва Казань Самара Москва
+# Москва Владимир Новгород Казань Самара Москва
+_1_cities = input().split()
+_2_cities = input().split()
+answer = 'ДА'
+for city in _1_cities:
+    if city not in _2_cities:
+        answer = 'НЕТ'
+        break
+print(answer)
+
+print('ДА' if _1_cities <= _2_cities else 'НЕТ')
+
+sp1 = set(input().split())
+sp2 = set(input().split())
+print(['НЕТ', 'ДА'][sp1.issubset(sp2)])
+
+print(('НЕТ', 'ДА')[sp1 & sp2 == sp1])
+
+# 6.5 Подвиг 7. Вводится натуральное число, которое может быть определено простыми множителями 1, 2, 3, 5 и 7.
+# Необходимо разложить введенное число на указанные простые множители и проверить,
+# содержит ли оно множители 2, 3 и 5 (все указанные множители)? Если это так, то вывести ДА, иначе - НЕТ.
+# Sample Input: 210       Sample Output: ДА
+check = {2, 3, 5}
+mltpls = set()
+number = mltpl = int(input())
+while mltpl:
+    if not number % mltpl:
+        mltpls.add(mltpl)
+    mltpl -= 1
+print('ДА' if mltpls >= check else 'НЕТ')
+
+print('НЕТ' if int(input()) % 30 else 'ДА')
+
+# 6.6 Подвиг 2. Вводится строка со списком оценок, например: 2 неудовлетворительно удовлетворительно хорошо отлично
+# Первая цифра - это числовое значение первой оценки. Остальные оценки имеют возрастающие на 1 числа.
+# С помощью генератора словарей необходимо сформировать словарь d, где ключами будут выступать числа, а значениями - слова.
+# Например:  d = {2: 'неудовлетворительно', 3: 'удовлетворительно', 4: 'хорошо', 5: 'отлично'}
+# Вывести на экран значение сформированного словаря с ключом 4.
+# Sample Input: 1 ужасно неудовлетворительно удовлетворительно прилично отлично
+# Sample Output: прилично
+in_strng = input().split()
+res_dict = {key: value for key, value in enumerate(in_strng[1:], int(in_strng[0]))}
+print(res_dict[4])
+
+start, *names = input().split() # x, s = int(s[0]), s[1:]
+res_dict = {key: value for key, value in enumerate(names, int(start))}
+print(res_dict[4])
+
+in_strng = input().split()
+marks = {int(in_strng[0]) + id: value for id, value in enumerate(in_strng[1:])}
+print(marks[4])
+
+# 6.6 Подвиг 5. Вводится текст в одну строчку со словами через пробел. Используя генераторы множеств и словарей,
+# сформировать словарь в формате: {слово_1: количество_1, слово_2: количество_2, ..., слово_N: количество_N}
+# То есть, ключами выступают уникальные слова (без учета регистра), а значениями - число их встречаемости в тексте.
+# На экран вывести значение словаря для слова (союза) 'и'. Если такого ключа нет, то вывести 0.
+# Sample Input: И что сказать и что сказать и нечего и точка Sample Output: 4
+in_list = input().split()
+res_dict = {'и': 0, }
+for word in in_list:
+    word = word.lower()
+    if word in res_dict:
+        res_dict[word] += 1
+    else:
+        res_dict[word] = 1
+print(res_dict['и'])
+
+in_list = input().lower().split()
+d = {word: in_list.count(word) for word in in_list}
+print(d.get('и', 0))
+
+print(input().lower().count('и '))
+
+# 6.6 Подвиг 6. Вводится список книг книжного магазина в формате:
+# Авторы с названиями могут повторяться. Необходимо, используя генераторы, сформировать словарь с именем d вида:
+# {'автор 1': {'название 1', 'название 2', ..., 'название M'}, ..., 'автор K': {'название 1', 'название 2', ..., 'название S'}}
+# То есть, ключами выступают уникальные авторы, а значениями - множества с уникальными названиями книг соответствующего автора.
+# На экран ничего выводить не нужно, только сформировать словарь обязательно с именем d - он, далее будет проверяться в тестах!
+# Пушкин: Сказака о рыбаке и рыбке
+# Есенин: Письмо к женщине
+# Тургенев: Муму
+# Пушкин: Евгений Онегин
+# Есенин: Русь
+# Sample Output: True
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+d = {}
+
+for pair in lst_in:
+    key, value = pair.split(":")
+    if key in d:
+        d[key].add(value.strip())
+    else:
+        d[key] = {value.strip()}
+
+for pair in lst_in:
+    key, value = pair.split(': ')
+    d.setdefault(key, set()).add(value)
+
+[d.setdefault(i[0], set()).add(i[1]) for i in [pair.split(': ') for pair in lst_in]]
+
+# 7.2  Подвиг 2. Объявите функцию с именем is_triangle, которая принимает три стороны треугольника (целые числа) и проверяет,
+# можно ли из переданных аргументов составить треугольник.
+# (Напомню, что у любого треугольника длина третьей стороны всегда должна быть меньше суммы двух других).
+# Если  проверка проходит, вернуть булево значение True, иначе - значение False.
+def is_triangle(_1, _2, _3):
+    sides = [_1, _2, _3]
+    return max(sides) < sum(sides) - max(sides)
+
+def is_triangle(a, b, c):
+    a, b, c = sorted((a, b, c)) # в скобках кортеж
+    return c < a + b
+
+def is_triangle(a, b, c):
+    return a < b + c and b < a + c and c < a + b
+
+def is_triangle(a, b, c):
+    return max(a, b, c) < a + b + c - max(a, b, c)
+
+#######################
+def chet(x):
+    return not x % 2
+[print(i) for i in iter(input, '1') if chet(int(i))]
+
+# Подвиг 6. Вводится слово в переменную tp. Если это слово RECT, то следует объявить функцию с именем get_sq с двумя параметрами,
+# вычисляющую площадь прямоугольника и возвращающую вычисленное значение. (На экран она ничего не должна выводить, только возвращать значение).
+# Если же введенное слово не RECT (любое другое), то объявляется функция с тем же именем get_sq,
+# с одним параметром для вычисления площади квадрата (формула: a*a). Вычисленное значение возвращается функцией.
+# (Она также ничего не выводит на экран).
+# Примечание: в программе должна быть задана только одна функция с именем get_sq в зависимости от введенного слова.
+# Вызывать функцию не нужно, только объявлять.
+tp = input().strip()
+if tp =='RECT':
+    def get_sq(length, height):
+        return length * height
+else:
+    def get_sq(side):
+        return side ** 2
+
+get_sq = lambda *a: a[0] * a[-1]
+
+# 7.2 Подвиг 8. Объявите функцию, которая принимает строку (в качестве аргумента) и возвращает два значения в виде кортежа:
+# переданная строка и ее длина.После объявления функции прочитайте (с помощью функции input) список названий городов,
+# записанных в одну строку через пробел. Затем, используя генератор словарей и созданную функцию, сформируйте словарь d в формате:
+# d = {<город 1>: <число символов>, ..., <город N>: <число символов>}
+# Выведите этот словарь в порядке возрастания длин строк с помощью команд: a = sorted(d, key=lambda x: d[x])
+# Sample Input: Воронеж Лондон Тверь Омск Уфа    Sample Output: Уфа Омск Тверь Лондон Воронеж
+def add_len(city):
+    return city, len(city)
+
+d = dict(add_len(item) for item in input().split())
+a = sorted(d.keys(), key=d.get)
+print(*a)
+
+# 7.4  Подвиг 3. Объявите функцию с именем check_password,
+# которая принимает аргумент - строку (пароль) и имеет один формальный параметр chars с начальным значением в виде строки "$%!?@#".
+# Функция должна проверять: есть ли в пароле хотя бы один символ из chars и что длина пароля не менее 8 символов.
+# Если проверка проходит, то функция возвращает True, иначе - False.  . Вызывать функцию не нужно, только объявить.
+# Sample Input: 12345678! Sample Output: True
+def check_password(password, chars="$%!?@#"):
+    """ does the password contain at least one character from 'chars' ,
+    and the password length is at least 8 characters  """
+    return len(password) > 7 and any([int(sign in password) for sign in chars])
+def _check_password(password, chars='$%!?@#'):
+    return len(password) > 7 and any(sign in chars for sign in password)
+def __check_password(password, chars="$%!?@#"):
+    return len(password) > 7 and len(set(password) & set(chars)) > 0
+
+# 7.4  Подвиг 4. Объявите функцию, которая принимает строку на кириллице и преобразовывает ее в латиницу,
+# используя следующий словарь для замены русских букв на соответствующее латинское написание:
+# Функция должна возвращать преобразованную строку. Замены делать без учета регистра (исходную строку перевести в нижний регистр - малые буквы).
+# У функции также определить формальный параметр sep с начальным значением в виде строки "-". Он будет определять символ для замены пробелов в строке.
+# После объявления функции прочитайте (с помощью функции input) строку и дважды вызовите функцию (с выводом результата ее работы на экран):
+# - первый раз только со строкой - второй раз со строкой и именованным аргументом sep со значением '+'.
+# Sample Input: Лучший курс по Python!             Sample Output:
+# luchshiy-kurs-po-python!
+# luchshiy+kurs+po+python!
+def CrlcToLtn(Crlc, sep='-'):
+    """return Latin string from Cyrillic('Crlc' value). case insensitive . spacebar change to 'sep' value """
+    trnscrpt = {'ё': 'yo', 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ж': 'zh',
+                'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p',
+                'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
+                'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'}
+    return "".join([trnscrpt.get(sign, sign) for sign in Crlc.replace(' ', sep).lower()])
+in_string = input()
+print(CrlcToLtn(in_string))
+print(CrlcToLtn(in_string, '+'))
+
+# 7.5  Подвиг 4. Объявите функцию с именем get_biggest_city, которой можно передавать произвольное количество названий городов через аргументы.
+# Данная функция должна возвращать название города наибольшей длины. Если таких городов несколько, то первый найденный (из наибольших).
+# Программу реализовать без использования сортировки. Функцию выполнять не нужно, только определить.
+#  Sample Input:Питер Москва Самара Воронеж Sample Output: Воронеж
+def get_biggest_city(*cities):
+    """return first sample of the longest city name """
+    return max(cities, key=len)
+
+# 7.5  Подвиг 5. Объявите функцию с именем get_data_fig для вычисления периметра произвольного N-угольника.
+# На вход этой функции передаются N длин сторон через аргументы. Дополнительно могут быть указаны именованные аргументы:
+# type - булево значение True/False
+# color - целое числовое значение
+# closed - булево значение True/False
+# width - целое значение
+# Функция должна возвращать в виде кортежа периметр многоугольника и указанные значения именованных параметров
+# в порядке их перечисления в тексте задания (если они были переданы). Если какой-либо параметр отсутствует,
+# его возвращать не нужно (пропустить).                  Функцию выполнять не нужно, только определить.
+def get_data_fig(*args, **kwargs):
+    kwargs = [kwargs[value] for value in ['type', 'color', 'closed', 'width'] if value in kwargs]
+    return (sum(args), *kwargs)
+
+def __get_data_fig(*n, type=None, color=None, closed=None, width=None):
+    return (sum(n),) + tuple(key for key in [type, color, closed, width] if key != None)
+
+def _get_data_fig(*args, **kwargs):
+    args = sum(args),
+    if 'type' in kwargs:
+        args += kwargs['type'],
+    if 'color' in kwargs:
+        args += kwargs['color'],
+    if 'closed' in kwargs:
+        args += kwargs['closed'],
+    if 'width' in kwargs:
+        args += kwargs['width'],
+    return args
+
+def ___get_data_fig(*args: int, type: bool = None, color: int = None, closed: bool = None, width: int = None):
+    return tuple(arg for arg in [sum(args), type, color, closed, width] if not (arg is None))
+
+# 7.5   Большой подвиг 6. (Для закрепления предыдущего материала). Вводится таблица целых чисел (см. пример ниже)
+# размером N x N элементов (N определяется по входным данным). Эта таблица содержит нули, но кое-где - единицы.
+# С помощью функции с именем verify, на вход которой передается двумерный список чисел, необходимо проверить,
+# являются ли единицы изолированными друг от друга, то есть, вокруг каждой единицы должны быть нули.
+# Рекомендуется следующий алгоритм. В функции verify производить перебор двумерного списка.
+# Для каждого элемента (списка) со значением 1 вызывать еще одну вспомогательную функцию is_isolate для проверки изолированности единицы.
+# То есть, функция is_isolate должна возвращать True, если единица изолирована и False - в противном случае.
+# Как только встречается не изолированная единица, функция verify должна возвращать False.
+# Если успешно доходим (по элементам списка) до конца, то возвращается значение True. Функцию выполнять не нужно, только определить.
+# При реализации функции is_isolate не следует прописывать восемь операторов if.
+# Подумайте, как это можно сделать красивее (с точки зрения реализации алгоритма).# Sample Output: True
+# 1 0 0 0 0
+# 0 0 1 0 0
+# 0 0 0 0 0
+# 0 1 0 1 0
+# 0 0 0 0 0
+def is_isolate(*args):
+    return sum(*args) < 2
+def verify(lst):
+    return False not in [is_isolate(lst[row][pos:pos + 2] + lst[row + 1][pos:pos + 2])
+                         for pos in range(len(lst) - 1)
+                         for row in range(len(lst) - 1)]
+
+
+is_isolate = lambda x, y, z: sum([z[x][y], z[x + 1][y], z[x][y + 1], z[x + 1][y + 1]]) > 1
+verify = lambda a: not any(is_isolate(i, j, a)
+                           for j in range(len(a) - 1)
+                           for i in range(len(a) - 1))
+
+# 7.6 Подвиг 6. Имеется словарь, содержащий пункты меню:  Дополнительно вводятся еще пункты меню в виде строк в формате:
+#...................................................
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+menu = {'Главная': 'home', 'Архив': 'archive', 'Новости': 'news'}
+
+for pair in lst_in:
+    key, value = pair.split("=")
+    menu[key] = value
+
+menu = dict(**menu, **dict([pair.split('=') for pair in lst_in]))
+
+menu.update([pair.split('=')
+             for pair in map(str.strip, sys.stdin.readlines())])
+
+# 7.7 Подвиг 2. Вводится целое положительное число N. Необходимо написать рекурсивную функцию с именем get_rec_N,
+# которая отображает на экране последовательность целых чисел от 1 до N (включительно). Каждое число выводится с новой строки.
+# В качестве параметра функция get_rec_N должна принимать одно числовое значение. То есть, иметь только один параметр.
+def get_rec_N(N):
+    """ displays the sequence of a sequence of numbers from 1 to N (inclusive) """
+    if N > 1:
+        get_rec_N(N -1)
+    print(N)
+
+def __get_rec_N(N):
+    if N :
+        get_rec_N(N-1)
+        print(N)
+
+def ____get_rec_N(n):
+    n > 1 and get_rec_N(n - 1) or print(n)
+
+_get_rec_N = lambda n: (get_rec_N(n - 1), print(n)) if n else ...
+
+# 7.7 Подвиг 3. Вводится список целых чисел в одну строчку через пробел. Необходимо вычислить сумму этих введенных значений,
+# используя рекурсивную функцию (для перебора элементов списка) с именем get_rec_sum. Функция должна возвращать значение суммы.
+# (Выводить на экран она ничего не должна). Вызовите эту функцию и выведите вычисленное значение суммы на экран.
+# Sample Input: 8 11 -5 4 3   Sample Output:21
+def get_rec_sum(nmbrs):
+    """ """
+    return sum(nmbrs)
+
+def _get_rec_sum(lst):
+    head, *tail = lst
+    return head + get_rec_sum(tail) if tail else head
+
+def __get_rec_sum(n):
+    return get_rec_sum(n[1:]) + n[0] if len(n) else 0
+
+def ___get_rec_sum(lst):
+    if len(lst) > 0:
+        return lst.pop() + get_rec_sum(lst)
+    return 0
+
+def ____get_rec_sum(ls):
+    return ls.pop() + get_rec_sum(ls) if ls else 0
+
+# 7.7 Подвиг 4. Вводится натуральное число N. Необходимо с помощью рекурсивной функции fib_rec(N, f=[])
+# (здесь N - общее количество чисел Фибоначчи; f - начальный список этих чисел) сформировать последовательность чисел Фибоначчи по правилу:
+# первые два числа равны 1 и 1, а каждое следующе значение равно сумме двух предыдущих.
+# Пример такой последовательности для первых 7 чисел: 1, 1, 2, 3, 5, 8, 13, ...
+# Функция должна возвращать список сформированной последовательности длиной N.
+# Вызывать функцию не нужно, только объявить.
+# Sample Input: 7    Sample Output: 1 1 2 3 5 8 13
+N = int(input())
+def fib_rec(N, f=[1,1,]):
+    """ """
+    if not N:
+        del f[:]
+    elif N > 2:
+        f.append(f[-1] + f[-2] )
+        N -= 1
+        fib_rec(N)
+    elif N < 2:
+        del f[-1]
+    return f
+
+def fib_rec(N, f=[]):
+    if len(f) < N:
+        f.append(1 if len(f) < 2 else f[-1] + f[-2])
+        fib_rec(N)
+        return f
+
+def fib_rec(N, f=[1, 1]):
+    return fib_rec(N, f + [f[-2] + f[-1]]) if len(f) < N else f[:N]
+
+print(fib_rec(N))
+
+# 7.7 Подвиг 5. Вводится целое неотрицательное число n. Необходимо с помощью рекурсивной функции fact_rec вычислить факториал числа n.
+# Напомню, что факториал числа, равен: n! = 1 * 2 * 3 *...* n. Функция должна возвращать вычисленное значение.
+# Вызывать функцию не нужно, только объявить со следующей сигнатурой:  def fact_rec(n): ...    Sample Input: 6   Sample Output:720
+def fact_rec(n, n_lst=[1,]):
+    """ """
+    if n:
+        n_lst.append(n * n_lst[-1])
+        fact_rec(n-1)
+        return n_lst[-1]
+
+def fact_rec(n, m=n):
+    """ """
+    return n * fact_rec(n - 1) if n else 0 if m == 0 else 1
+
+def fact_rec(n):
+    return n * fact_rec(n-1) if n else 1
+
+def fact_rec(n):
+    return n and n * fact_rec(n - 1) or 1
+
+# 7.7 Подвиг 6. Имеется следующий многомерный список:  d = [1, 2, [True, False], ["Москва", "Уфа", [100, 101], ['True', [-2, -1]]], 7.89]
+# С помощью рекурсивной функции get_line_list создать на его основе одномерный список из значений элементов списка d.
+# Функция должна возвращать новый созданный одномерный список.  (Только возвращать, выводить на экран ничего не нужно.)
+# где d - исходный список; a - новый формируемый.
+d = [1, 2, [True, False], ["Москва", "Уфа", [100, 101], ['True', [-2, -1]]], 7.89]
+def get_line_list(d, a=None):
+    if a is None:
+        a = []
+    for d_val in d:
+        if type(d_val) == list:
+            get_line_list(d_val)
+        elif type(d_val) != list:
+            a.append(d_val)
+    return a
+
+def get_line_list(d, a=[]):
+    [get_line_list(f, a) if type(f) == list
+     else a.append(f) for f in d]
+    return a
+
+# 7.7 Подвиг 7. Лягушка прыгает вперед и может скакнуть либо на одно деление, либо сразу на два.
+# Наша задача определить количество вариантов маршрутов, которыми лягушка может достичь риски под номером N
+# (натуральное число N вводится с клавиатуры). Решать задачу следует с применением рекурсивной функции.
+# Назовем ее get_path. Алгоритм решения будет следующий. Рассмотрим, например, риску под номером 4.
+# Очевидно, в нее лягушка может скакнуть либо с риски номер 2, либо с риски номер 3. З
+# начит, общее число вариантов перемещений лягушки можно определить как:  get_path(4) = get_path(3) + get_path(2)
+def get_path(n):
+    return 0 if n == 0 else n if n in (1, 2) else get_path(n - 1) + get_path(n - 2)
+
+# 7.10 Подвиг 1. Используя замыкания функций, определите вложенную функцию, которая бы увеличивала значение переданного параметра на 5
+# и возвращала бы вычисленный результат. При этом внешняя функция должна иметь следующую сигнатуру: def counter_add(): ...
+# Вызовите функцию counter_add и результат ее работы присвойте переменной с именем cnt.
+# Вызовите внутреннюю функцию через переменную cnt со значением k, введенным с клавиатуры: k = int(input())   Выведите результат на экран.
+# Sample Input: 7   Sample Output: 12
+def counter_add(number):
+    def pls5():
+        nonlocal number
+        return number + 5
+    return pls5
+
+k = int(input())
+cnt = counter_add(k)
+print(cnt())
+
+#print((lambda x: x+5)(int(input())))
+def counter_add():
+    def add_5(a):
+        return a + 5
+    return add_5
+print(counter_add()(int(input())))
+
+# 7-10 Подвиг 2. Используя замыкания функций, объявите внутреннюю функцию,
+# которая увеличивает значение своего аргумента на некоторую величину n - параметр внешней функции с сигнатурой: def counter_add(n): ...
+#  Вызовите внешнюю функцию counter_add со значением аргумента 2 и результат присвойте переменной cnt.
+#  Вызовите внутреннюю функцию через переменную cnt со значением k, введенным с клавиатуры: k = int(input()) Выведите результат на экран.
+#  Sample Input: 5   Sample Output: 7
+def counter_add(n):
+    """ """
+    def add(m=2):
+        """ """
+        return n / m
+    return add
+print(counter_add(int(input()))(int(input())))
+
+# 7.11 Подвиг 1. Объявите функцию с именем get_sq, которая вычисляет площадь прямоугольника по двум параметрам:
+# width и height - ширина и высота прямоугольника. И возвращает результат (сама ничего на экран не выводит).
+# То есть, функция имеет сигнатуру: def get_sq(width, height): ... Определите декоратор func_show для этой функции,
+# который отображает результат на экране в виде строки (без кавычек): "Площадь прямоугольника: <значение>"
+# Вызывать функцию и декоратор не нужно, только объявить. Применять декоратор к функции также не нужно.
+# Sample Input: 8 11    Sample Output: Площадь прямоугольника: 88
+def func_show(func):
+    """ """
+    def prnt(*args):
+        return print(f'Площадь прямоугольника: {func(*args)}')
+    return prnt
+get_sq = lambda width, height : width * height
+
+# 7.11 Подвиг 2. На вход программы поступает строка с названиями пунктов меню, записанные в одну строчку через пробел.
+# Необходимо задать функцию с именем get_menu, которая преобразует эту строку в список из слов и возвращает этот список.
+# Сигнатура функции, следующая:def get_menu(s): ...
+# Определите декоратор для этой функции с именем show_menu, который отображает список на экран в формате:.......
+def show_menu(func):
+    """   """
+    def wraper(*args, **kwargs):
+        [print(f'{index}. {value}')
+         for index, value in enumerate(func(*args, **kwargs), start=1)]
+    return wraper
+@show_menu
+def get_menu(s):
+    """ """
+    return s.split()
+
+# 7.11 Подвиг 4. Вводятся две строки из слов (слова записаны через пробел). Объявите функцию,
+# которая преобразовывает эти две строки в два списка слов и возвращает эти списки.
+# Определите декоратор для этой функции, который из двух списков формирует словарь,
+# в котором ключами являются слова из первого списка, а значениями - соответствующие элементы из второго списка.
+# Полученный словарь должен возвращаться при вызове декоратора.
+# Примените декоратор к первой функции и вызовите ее для введенных строк. Результат (словарь d) отобразите на экране командой:
+# Sample Input:
+# house river tree car
+# дом река дерево машина
+# Sample Output: ('car', 'машина') ('house', 'дом') ('river', 'река') ('tree', 'дерево')
+sring1, sring2 = input(), input()
+def get_dctnr(func):
+    """ """
+    def wrapper(*args, **kwargs):
+        keys, values = func(*args, **kwargs)
+        return {keys[_]:values[_] for _ in range(len(keys))}
+    return wrapper
+@get_dctnr
+def make_list(*args):
+    return list(string.split() for string in args)
+d = make_list(sring1, sring2)
+print(*sorted(d.items()))
+
+# 7.11 Подвиг 5. Объявите функцию, которая принимает строку на кириллице и преобразовывает ее в латиницу,
+# Функция должна возвращать преобразованную строку. Замены делать без учета регистра
+# (исходную строку перевести в нижний регистр - малые буквы). Все небуквенные символы ": ;.,_" превращать в символ '-' (дефиса).
+# Определите декоратор для этой функции, который несколько подряд идущих дефисов, превращает в один дефис.
+# Полученная строка должна возвращаться при вызове декоратора. (Сам декоратор на экран ничего выводить не должен).
+# Примените декоратор к первой функции и вызовите ее для введенной строки s на кириллице: s = input()
+# Результат работы декорированной функции отобразите на экране. Sample Input: Python - это круто!  Sample Output:python-eto-kruto!
+s = input()
+trncrb = {'ё': 'yo', 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ж': 'zh',
+     'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p',
+     'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
+     'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'}
+def sngl_hphn(func):
+    """ """
+    def wraper(*args, **kwargs):
+        string = func(*args)
+        while "--" in string:
+            string = string.replace("--",  "-")
+        return string
+    return wraper
+
+def remove(func):
+    def wrapper(stroka):
+        ls = func(stroka).replace('-', ' ').split()
+        return '-'.join(ls)
+    return wrapper
+def dash_set(func):
+    def wrapper(s):
+        return '-'.join(func(s).replace('-', ' ').split())
+    return wrapper
+
+
+@sngl_hphn
+def crlc2ltn(in_string):
+    out_string = ""
+    for sign in in_string:
+        if sign.lower() in trncrb:
+            out_string += trncrb[sign.lower()]
+        elif sign in ": ;.,_":
+            out_string += "-"
+        else:
+            out_string += sign.lower()
+    return out_string
+
+@sngl_hphn
+def crlc2ltn(in_string):
+    return ''.join(
+        trncrb[sign.lower()] if sign.lower() in trncrb else
+        "-" if sign in ": ;.,_"
+        else sign.lower()
+        for sign in in_string.strip())
+
+print(crlc2ltn(s))
+
+# 7.12   Подвиг 1. Вводится строка целых чисел через пробел. Напишите функцию,
+# которая преобразовывает эту строку в список чисел и возвращает их сумму.
+# Определите декоратор для этой функции, который имеет один параметр start - начальное значение суммы.
+# Примените декоратор со значением start=5 к функции и вызовите декорированную функцию для введенной строки s:
+# Результат отобразите на экране.
+# Sample Input:  5 6 3 6 -4 6 -1    Sample Output: 26
+def starter(start=5):
+    """ define starting position"""
+    def startr(func):
+        def wrapper(*args, **kwargs):
+            return func(*args) + start
+        return wrapper
+    return startr
+@starter(start=5)
+def str2list(string):
+    """returns sum of list(converted string) numbers """
+    nmbrs_lst = [int(value) for value in string.split()] # list(map(int, string.split()))
+    return sum(nmbrs_lst)
+s = input()
+print(str2list(s))
+f = starter(start=5) # paradox +5
+f1 = f(str2list)
+print(f1(s))
+
+
+def plus(start=5):
+    return lambda func: lambda *args: func(*args) + start
+@plus()
+def summa(s):
+    return sum([int(x) for x in s.split()])
+print(summa(input()))
+
+# 7.12   Подвиг 3. Объявите функцию, которая принимает строку на кириллице и преобразовывает ее в латиницу,
+# используя следующий словарь для замены русских букв на соответствующее латинское написание:
+# Функция должна возвращать преобразованную строку. Замены делать без учета регистра (исходную строку перевести в нижний регистр
+# - малые буквы). Определите декоратор с параметром chars и начальным значением " !?", который данные символы преобразует в символ "-" и,
+# кроме того, все подряд идущие дефисы (например, "--" или "---") приводит к одному дефису.
+# Полученный результат должен возвращаться в виде строки.
+# Примените декоратор с аргументом chars="?!:;,. " к функции и вызовите декорированную функцию для введенной строки s:
+# Результат отобразите на экране. Sample Input: Декораторы - это круто! Sample Output: dekoratory-eto-kruto-
+def e_xepter(chars="?! "):
+    return lambda func: lambda *args: ''.join([val if val not in chars else "-" for val in func(*args)]).replace('---', '-')
+def exepter(chars="?! "):
+    """ """
+    def _exepter(func):
+        def wrapper(*args, **kwargs):
+            x = ''
+            for sign in func(*args):
+                if sign in chars:
+                    x += "-"
+                else:
+                    x += sign
+            while "--" in x:
+                x = x.replace('--', '-')
+            return x
+        return wrapper
+    return _exepter
+@exepter(chars="?!:;,. ")
+def Crllc2ltn(string):
+    """ """
+    t = {'ё': 'yo', 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ж': 'zh',
+         'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p',
+         'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
+         'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'}
+    return ''.join(t.get(sign, sign)
+                   for sign in string.lower())
+print(Crllc2ltn(input()))
+
+# 7.12   Подвиг 4. Объявите функцию с именем get_list и следующим описанием в теле функции:
+# ''''''Функция для формирования списка целых значений''''''
+# Сама функция должна формировать и возвращать список целых чисел,
+# который поступает на ее вход в виде строки из целых чисел, записанных через пробел.
+# Определите декоратор, который выполняет суммирование значений из списка этой функции и возвращает результат.
+# Внутри декоратора декорируйте переданную функцию get_list с помощью команды @wraps (не забудьте сделать импорт:
+# from functools import wraps). Такое декорирование необходимо,
+# чтобы исходная функция get_list сохраняла свои локальные свойства: __name__ и __doc__.
+# Примените декоратор к функции get_list, но не вызывайте ее.
+from functools import wraps
+def adder(func):
+    """  """
+    @wraps(func)
+    def add(*args):
+        return sum(func(*args))
+    return add
+
+@adder
+def get_list(numbers_string):
+    '''Функция для формирования списка целых значений'''
+    return [int(value) for value in numbers_string.split()]
+#   return list(map(int, s.split()))
+
+print(get_list(input()))
+
+########################
+[print(next(g)) for _ in '=-=-=']
+# 9.1   Подвиг 6. Вводится целое положительное число a. Необходимо определить генератор, который бы возвращал модули чисел в диапазоне [-a; a],
+# а затем еще один, который бы вычислял кубы чисел (возведение в степень 3), возвращаемых первым генератором.
+# Вывести в одну строчку через пробел первые четыре значения. (Полагается, что генератор выдает, как минимум четыре значения).
+# Sample Input: 3 Sample Output: 27 8 1 0
+#  (*(abs(x**3) for x in range(-a, -a + 4))) != (*(abs(3**x) for x in range(-a, -a + 4)))
+a=int(input())
+gen1=(abs(x) for x in range(-a,a+1))
+gen2=(x**3 for x in gen1)
+for i in range(4):
+    print(next(gen2),end=" ")
+
+# 9.1   Подвиг 9. Имеется график функции f(x) = 0.5x^2 - 2. Необходимо записать генератор,
+# который бы выдавал значения этой функции для аргумента x в диапазоне [a; b] с шагом 0.01.
+# Величины a, b вводятся с клавиатуры в одну строчку через пробел как целые числа (a< b).
+# Вывести на экран первые 20 значений функции с точностью до сотых, взятых из генератора.
+# P.S. Значения функции вычислять командой: f(x) = 0.5 * pow(x, 2) - 2.0
+# Sample Input: 0 10 Sample Output: -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -2.0 -1.99 -1.99 -1.99 -1.99 -1.99 -1.99 -1.99 -1.98 -1.98
+a,b = map(int,input().split())
+
+def f(x):
+    return 0.5 * pow(x, 2) - 2.0
+gen = ((x/100) for x in range(100*a,100*b))
+lst = [round(f(x),2) for x in gen]
+print(*lst[0:20])
+
+# 9.2   Подвиг 1. Вводится натуральное число N. Необходимо определить функцию-генератор с именем get_sum,
+# которая бы возвращала текущую сумму чисел последовательности длины N в диапазоне целых чисел [1; N]. Например:
+# - для первого числа 1 сумма равна 1;   # - для второго числа 2 сумма равна 1+2 = 3     - для N-го числа сумма равна 1+2+...+(N-1)+N
+#  Реализовать функцию-генератор get_sum без использования коллекций. Вызывать ее не нужно, только определить.
+#  Sample Input: 5   Sample Output: 1 3 6 10 15
+def get_sum(N=5):
+    """ """
+    res = 0
+    for cycle in range(1, N + 1):
+        res += cycle
+        yield res
+x= get_sum()
+print(next(x)) ######## != print(next(get_sum()))
+
+# 9.2 Подвиг 2. Мы с вами в заданиях несколько раз генерировали последовательность чисел Фибоначчи, которая строится по правилу:
+# каждое последующее число равно сумме двух предыдущих. Для разнообразия давайте будем генерировать каждое последующее как сумму трех предыдущих чисел.
+# При этом первые три числа равны 1 и имеем такую последовательность: 1, 1, 1, 3, 5, 9, 17, 31, 57, ...
+#  Не знаю, есть ли у нее название, поэтому, в рамках уроков, я скромно назову ее последовательностью Балакирева.
+# Итак, на вход программы поступает натуральное число N (N > 5) и необходимо определить функцию-генератор,
+# которая бы возвращала N первых чисел последовательности Балакирева (включая первые три единицы).
+#  Реализуйте эту функцию без использования коллекций (списков, кортежей, словарей и т.п.).
+#  Вызовите ее N раз для получения N чисел и выведите полученные числа на экран в одну строчку через пробел. Sample Input: 7 Sample Output: 1 1 1 3 5 9 17
+def get_sum(N):
+    a = b = c = 1
+    for _ in range(N):
+        yield a
+        a, b, c = b, c, a + b + c
+
+
+def gen(N):
+    def seq(i):
+        return seq(i - 1) + seq(i - 2) + seq(i - 3) if i > 3 else 1
+    for i in range(1, N + 1):
+        yield seq(i)
+
+# 9.2   Подвиг 3. Вводится натуральное число N (N > 8). Необходимо определить функцию-генератор,
+# которая бы выдавала пароль длиной N символов из случайных букв, цифр и некоторых других знаков.
+# Для получения последовательности допустимых символов для генерации паролей в программе импортированы две строки:
+# ascii_lowercase, ascii_uppercase (см. листинг ниже), на основе которых формируется общий список:
+# Функция-генератор должна при каждом вызове возвращать новый пароль из случайно выбранных символов chars длиной N и делать это бесконечно,
+# то есть, вызывать ее можно бесконечное число раз. Сгенерировать случайный индекс indx в диапазоне [a; b]
+# для символа можно с помощью функции randint модуля random:
+# Сгенерируйте с помощью этой функции первые пять паролей и выведите их в столбик (каждый с новой строки).
+## Sample Output:    Sample Input: 10
+# riGp?58WAm
+# !dX3a5IDnO
+# dcdbWB2d*C
+# 4?DSDC6Lc1
+# mxLpQ@2@yM
+import random
+from string import ascii_lowercase, ascii_uppercase
+chars = ascii_lowercase + ascii_uppercase + "0123456789!?@#$*"
+random.seed(1)
+n = int(input())
+def get_pass(n):
+    while True:
+        passw = ''
+        for i in range(n):
+            indx = random.randint(0, len(chars) - 1)
+            passw += chars[indx]
+        yield passw
+gen = get_pass(n)
+for i in range(5):
+    print(next(gen))
+
+def gen_pwd(n):
+    chars = ascii_lowercase + ascii_uppercase + "0123456789!?@#$*"
+    while True:
+        yield ''.join([chars
+                       [random.randint(0, len(chars))]
+                       for _ in range(n)])
+pwd = gen_pwd(int(input()))
+[print(next(pwd)) for _ in range(5)]
+
+def gen_password(N):
+    chars = ascii_lowercase + ascii_uppercase + "0123456789!?@#$*"
+    while True:
+        yield ''.join(choice(chars) for _ in range(N))
+
+########
+res = 0 + bool(a)
+# 9.2   Подвиг 4. Вводится натуральное число N. Используя строки из латинских букв ascii_lowercase и ascii_uppercase:
+# задайте функцию-генератор, которая бы возвращала случайно сформированные email-адреса с доменом mail.ru и длиной в N символов.
+# Например, при N=6, получим адрес: SCrUZo@mail.ru
+# Для формирования случайного индекса для строки chars используйте функцию randint модуля random:
+# import random     random.seed(1)       indx = random.randint(0, len(chars)-1)
+# Функция-генератор должна возвращать бесконечное число таких адресов, то есть, генерировать постоянно.
+# Выведите первые пять сгенерированных email и выведите их в столбик (каждый с новой строки).
+# Sample Output:# Sample Input: 8
+# iKZWeqhF@mail.ru
+# WCEPyYng@mail.ru
+# FbyBMWXa@mail.ru
+# SCrUZoLg@mail.ru
+# ubbbPIay@mail.ru
+from string import ascii_lowercase, ascii_uppercase
+chars = ascii_lowercase + ascii_uppercase
+import random
+random.seed(1)
+N = int(input())
+def get_rndm_mail(N):
+    """ """
+    while True:
+        yield ''.join(chars[random.randint(0,len(chars) - 1)] for _ in range(N)) + '@mail.ru' ##### LEN -1 !!!!!!!!
+X = get_rndm_mail(N)
+[print(next(X)) for _ in range(5)]
+
+#######################################
+# 9.2   Подвиг 5. Определите функцию-генератор, которая бы возвращала простые числа.
+# (Простое число - это натуральное число, которое делится только на себя и на 1).
+# Выведите с помощью этой функции первые 20 простых чисел (начиная с 2) в одну строчку через пробел.
+def prime_gen():
+    for i in range(2, 10 ** 10):
+        for j in range(2, int(i ** 0.5) + 1):
+            if i % j == 0:
+                break
+        else:
+            yield i
+p = prime_gen()
+print(*(next(p) for i in range(20)))
+
+def is_prime(n):
+    d = 2
+    while d * d <= n and n % d != 0:
+        d += 1
+    return d * d > n
+
+def get_prime():
+    n = 2
+    while True:
+        if is_prime(n):
+            yield n
+        n += 1
+gen = get_prime()
+print(*(next(gen) for i in range(20)))
+
+# 9.3   Подвиг 2. На вход поступает строка из целых чисел, записанных через пробел.
+# С помощью функции map преобразовать эту строку в список целых чисел, взятых по модулю. Сформируйте именно список lst из таких чисел.
+# Отобразите его на экране в виде набора чисел, идущих через пробел. Sample Input: -5 6 8 11 -10 0   Sample Output:  5 6 8 11 10 0
+lst = list(map(abs,
+               map(int, input().split())))
+
+# 9.3   Подвиг 3. Вводится таблица целых чисел. Используя функцию map и генератор списков,
+# преобразуйте список строк lst_in (см. листинг) в двумерный список с именем lst2D, содержащий целые числа.
+# Выводить на экран ничего не нужно, только сформировать список lst2D на основе введенных данных.  # Sample Output: True
+# 8 11 -5
+# 3 4 10
+# -1 -2 3
+# 4 5 6
+import sys
+
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+lst2D = [[int(val)
+          for val in row]
+         for row in list(map(str.split, lst_in))]
+
+lst2D = [list(map(int, row.split())) for row in lst_in]
+
+# 9.3   Подвиг 4. На вход программы поступает строка в формате:  ключ_1=значение_1 ключ_2=значение_2 ... ключ_N=значение_N
+# Необходимо с помощью функции map преобразовать ее в кортеж tp вида:
+# tp = (('ключ_1', 'значение_1'), ('ключ_2', 'значение_2'), ..., ('ключ_N', 'значение_N'))
+# Выводить на экран ничего не нужно, только преобразовать строку в кортеж с именем tp.
+# Sample Input: house=дом car=машина men=человек tree=дерево
+# Sample Output:True
+s = input()
+s_lst = s.split()
+tp = tuple(tuple(pair.split("=")) for pair in s_lst)
+print(tp)
+# 9.3   Подвиг 5. (Для учебных целей). Вводится строка.
+# Необходимо в ней заменить кириллические символы на соответствующие латинские обозначения (без учета регистра букв),
+# а все остальные символы - на символ дефиса (-). Для этого в программе определен словарь (см. листинг).
+# Используя его, запишите функцию map, которая бы выдавала преобразованные фрагменты для входной строки.
+# На основе этой функции сформируйте строку, состоящую из преобразованных фрагментов (фрагменты в строке должны идти друг за другом без пробелов).
+# Отобразите результат на экране. Sample Input: Привет Питон   Sample Output:  privet-piton
+t = {'ё': 'yo', 'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ж': 'zh',
+     'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p',
+     'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh',
+     'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'}
+print("".join(t.get(a, "-")
+              for a in input().lower()))
+
+translit = map(lambda x: t.get(x.lower(), '-'), input())
+
+# 9.3   Подвиг 6. Вводятся названия городов в одну строчку через пробел. Необходимо определить функцию map,
+# которая бы возвращала названия городов только длиной более 5 символов. Вместо остальных названий - строку с дефисом ("-").
+# Сформировать список из полученных значений и отобразить его на экране в одну строчку через пробел.
+# Sample Input: Москва Уфа Вологда Тула Владивосток Хабаровск         Sample Output:   Москва - Вологда - Владивосток Хабаровск
+string = input().split()
+five_letters = list(city
+                    if len(city) > 5 else "-"
+                    for city in string)
+print(*five_letters)
+
+cities = map(lambda city: ('-', x)[len(city) > 5], input().split())
+print(*list(map(lambda city: city if len(city) > 5 else "-", input().split())))
+
+# 9.4   Подвиг 1. Вводятся названия городов в одну строчку через пробел. Необходимо определить функцию filter,
+# которая бы возвращала только названия длиной более 5 символов.
+# Извлеките первые три полученных значения с помощью функции next и отобразите их на экране в одну строчку через пробел.
+# (Полагается, что минимум три значения имеются). Sample Input:  Тула Ульяновск Хабаровск Владивосток Омск Уфа
+# Sample Output:  Ульяновск Хабаровск Владивосток
+cities = input().split()
+cities = filter(lambda city: len(city) > 5, cities)
+[print(next(cities), end=' ') for _ in range(3)]
+
+print(*(next(cities) for _ in range(3)))
+
+# 9.4   Подвиг 2. Вводится список предметов в виде списка: название_1: вес_1                    название_N: вес_N
+# С помощью функции map, необходимо сначала преобразовать этот список строк в кортеж, элементами которого также являются кортежи:
+# (('название_1', 'вес_1'), ..., ('название_N', 'вес_N'))
+# А, затем, отфильтровать (исключить) все предметы с весом менее 500, используя функцию filter.
+# Вывести на экран список оставшихся предметов (только их названия) в одну строчку через пробел.  # Sample Output: зонт палатка котелок
+# зонт=1000
+# палатка=10000
+# спички=22
+# котелок=543
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+tpl = tuple(map(tuple, (pair.split('=') for pair in lst_in if int(pair.split('=')[1]) > 499 )))
+print(*(item[0] for item in tpl))
+
+f = filter(lambda pair: int(pair[1]) > 499,
+           tuple(map(lambda pair: tuple(pair.split('=')), lst_in)))
+print(*(item for item, weight in f))
+
+# 9.4   Подвиг 3. Вводится список целых чисел в одну строчку через пробел. Необходимо оставить в нем только двузначные числа.
+# Реализовать программу с использованием функции filter.
+# Результат отобразить на экране в виде последовательности оставшихся чисел в одну строчку через пробел.
+# Sample Input: 8 11 0 -23 140 1  Sample Output: 11 -23
+print(*filter(lambda val: len(str(abs(val))) == 2, list(map(int, input().split()))))
+print(*filter(lambda x: 9 < abs(x) < 100, map(int, input().split())))
+
+# 9.4   Подвиг 4. Саша и Галя коллекционируют монетки. Каждый из них решил записать номиналы монеток из своей коллекции.
+# Получилось два списка. Эти списки поступают на вход программы в виде двух строк из целых чисел, записанных через пробел.
+# Необходимо выделить значения, присутствующие в обоих списках и оставить среди них только четные.
+# Результат вывести на экран в виде строки полученных чисел в порядке их возрастания через пробел.
+# При реализации программы используйте функцию filter и кое-что еще (для упрощения программы), подумайте что. # Sample Output: 2 10
+# 1 5 2 7 10 25 50 100
+# 5 2 3 7 10 25 55
+sm = sorted(filter(lambda x: x in b and x % 2 == 0, a))
+
+fil = filter(lambda x: not x % 2, s1 & s2)
+
+sasha = list(map(int, input().split()))
+galya = list(map(int, input().split()))
+res = filter(lambda val: not val % 2 and val in sasha and val in galya,
+             sasha if len(sasha) > len(galya) else galya)
+
+# 9.4   Подвиг 5. Вводится список email-адресов в одну строчку через пробел. Среди них нужно оставить только корректно записанные адреса.
+# Будем полагать, что к таким относятся те, что используют латинские буквы, цифры и символ подчеркивания.
+# А также в адресе должен быть символ "@", а после него символ точки "." (между ними, конечно же, могут быть и другие символы).
+# Результат отобразить в виде строки email-адресов, записанных через пробел.
+# Sample Input: abc@it.ru dfd3.ru@mail biba123@list.ru sc_lib@list.ru $fg9@fd.com     Sample Output: abc@it.ru biba123@list.ru sc_lib@list.ru
+from string import ascii_letters, digits
+chars = ascii_letters + digits + "_@."
+lst = input().split()
+fil = filter(lambda adress:
+             adress.count('@') == 1 and
+             adress.count('.') == 1 and
+             all(i in chars for i in adress) and
+             adress.index(adress[0]) < adress.index('@') + 2 < adress.index('.') < adress.index(adress[-1])
+             , lst)
+
+out = list(filter(lambda x: '.' in x[x.index('@'):] and x[0].isalpha(), mail_list))
+
+#Подвиг 1. Вводятся два списка целых чисел. Необходимо попарно перебрать их элементы и перемножить между собой.
+# При реализации программы используйте функции zip и map. Выведите на экран первые три значения, используя функцию next.
+# Значения выводятся в строчку через пробел. (Полагается, что три выходных значения всегда будут присутствовать).
+# Sample Output: # -7 16 33
+# -7 8 11 -1 3
+# 1 2 3 4 5 6 7 8 9 10
+n = map(int, input().split())
+m = map(int, input().split())
+res = (x * y for x, y in zip(n, m))
+print(*(next(res) for _ in range(3)))
+
+res = map(lambda a: a[0] * a[1], zip(l1, l2))
+
+# 9.5   Подвиг 2. Вводится неравномерная таблица целых чисел. С помощью функции zip выровнить эту таблицу, приведя ее к прямоугольному виду,
+# отбросив выходящие элементы. Вывести результат на экран в виде такой же таблицы чисел.
+# 1 2 3 4 5 6
+# 3 4 5 6
+# 7 8 9
+# 9 7 5 3 2
+# Sample Output:
+# 1 2 3
+# 3 4 5
+# 7 8 9
+# 9 7 5
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+array = zip(*map(str.split, lst_in))
+list(map(print, *array))
+
+list(map(print, *zip(*map(str.split, lst_in))))
+
+list(map(print,
+         *zip(*map(str.split,
+                   map(str.strip, open(0))))))
+
+[print(*_) for _ in zip(*zip(*map(str.split, open(0))))]
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+trans = [list(row) for row in zip(*array)]
+trans = list(map(list, zip(*array)))
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# 9.5   Подвиг 3. Вводится таблица целых чисел. Необходимо сначала эту таблицу представить двумерным списком чисел, а затем,
+# с помощью функции zip выполнить транспонирование этой таблицы (то есть, строки заменить на соответствующие столбцы).
+# Результат вывести на экран в виде таблицы чисел (числа в строках следуют через пробел).
+# 1 2 3 4
+# 5 6 7 8
+# 9 8 7 6
+# Sample Output:
+# 1 5 9
+# 2 6 8
+# 3 7 7
+# 4 8 6
+import sys
+
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+print(lst_in)
+lst_in = [[number for number in numbers.split()] for numbers in lst_in]
+list(map(print, *zip(*zip(*lst_in))))
+
+list(*map(print,
+          *map(str.split,
+               map(str.strip,
+                   open(0)))))
+
+[print(*row) for row in zip(*map(str.split, open(0)))]
+
+# 9.5   Подвиг 4. Вводится строка из слов, записанных через пробел.
+# Необходимо на их основе составить прямоугольную таблицу из трех столбцов и N строк (число строк столько, сколько получится).
+# Лишнее (выходящее) слово - отбросить. Реализовать эту программу с использованием функции zip.
+# Результат отобразить на экране в виде прямоугольной таблицы из слов, записанных через пробел (в каждой строчке).
+# Москва Уфа Тула Самара Омск Воронеж Владивосток Лондон Калининград Севастополь
+# Sample Output:
+# Москва Уфа Тула
+# Самара Омск Воронеж
+# Владивосток Лондон Калининград
+reply = input().split()
+lst = tuple(zip(*[iter(reply)] * (len(reply) // 3)))
+[print(*row) for row in lst]
+
+reply = input().split()
+lst = [reply[id::3] for id in range(len(reply) // 3)]
+for i in zip(*lst):
+    print(*i)
+
+for row in zip(*[iter(input().split())]*3):
+    print(*row)
+
+[print(*row) for row in zip(*[iter(input().split())] * 3)]
+
+lst = input().split()
+z = zip(lst[::3], lst[1::3], lst[2::3])
+[print(*row) for row in z]
+
+s = iter(input().split())
+for row in zip(s, s, s):
+    print(*row)
+
+# 9.5   Подвиг 5. Вводится строка. Требуется, используя введенную строку, сформировать N=10 пар кортежей в формате:
+# (символ, порядковый индекс)
+# Первый индекс имеет значение 0. Строка может быть короче 10 символов, а может быть и длиннее. То есть, число пар может быть 10 и менее.
+# Используя функцию zip сформируйте указанные кортежи и сохраните в список с именем lst.
+# Программа ничего не должна отображать на экране, только формировать список из кортежей.
+# Sample Input: Python дай мне силы пройти этот курс до конца!   Sample Output: True
+s = input()
+lst = list((symbol, id) for id, symbol in enumerate(s) if id < 10)
+
+lst = list(zip(s, range(10)))
+
+lst = [i[::-1] for i in enumerate(s)][:10] # [('P', 0), ('y', 1), ('t', 2), ('h', 3), ('o', 4), ('n', 5), (' ', 6), ('д', 7), ('а', 8), ('й', 9)]
+
+# 9.6   Подвиг 2. На вход поступает список целых чисел, записанных в одну строчку через пробел.
+# Преобразуйте сначала эту строку в список из целых чисел, а затем список в кортеж из целых чисел.
+# То есть, в программе будет две разные коллекции: список и кортеж. Отсортируйте по возрастанию значений эти коллекции методом sort,
+# если это возможно, а иначе - примените функцию sorted.
+# На экран ничего выводить не нужно, только сформировать две отсортированные коллекции: lst (список) - результат сортировки списка;
+# tp_lst (кортеж) - результат сортировки кортежа.P. S. На результаты сортировок обязательно должны ссылаться переменные с именами lst и tp_lst!
+# Sample Input:  -2 -1 8 11 4 5    Sample Output:   True
+s = input()
+lst = sorted(map(int, s.split())) # sorted(tuple) == et == always list
+tp_lst = tuple(sorted(map(int, s.split())))
+
+# 9.6   Подвиг 3. На вход функции с именем get_sort поступает словарь, например, такой:
+# d = {'cat': 'кот', 'horse': 'лошадь', 'tree': 'дерево', 'dog': 'собака', 'book': 'книга'}
+# Необходимо отсортировать словарь d по убыванию ключей (лексикографическая сортировка строк)
+# и возвратить список из соответствующих значений ключей словаря. Например, для указанного словаря d, результатом должен быть список:
+# ['дерево', 'лошадь', 'собака', 'кот', 'книга']
+# Сигнатура функции get_sort должна быть следующей:  def get_sort(d): ...
+# В программе только определить функцию, вызывать ее не нужно и что-либо выводить на экран тоже не нужно.
+# P. S. Подсказка: список в функции get_sort лучше всего формировать с помощью генератора списков.
+d = {'cat': 'кот', 'horse': 'лошадь', 'tree': 'дерево', 'dog': 'собака', 'book': 'книга'}
+def get_sort(d):
+    """ """
+    return [value for key, value in sorted(d.items() , reverse=True)]
+
+def get_sort(d):
+    return [d[key] for key in sorted(d, reverse=True)]
+
+def get_sort(d):
+    return [d[key] for key in sorted(d)][::-1]
+
+def get_sort(d):
+    return list(map(lambda pair: pair[1], sorted(d.items(), reverse=True)))
+
+# 9.6   Подвиг 6. На вход программы поступает список товаров в формате:
+# Необходимо преобразовать этот список в словарь, ключами которого выступают цены (целые числа),
+# а значениями - соответствующие названия товаров. Необходимо написать функцию,
+# которая бы принимала на входе словарь и возвращала список из наименований трех наиболее дешевых товаров.
+# Вызовите эту функцию и отобразите на экране полученный список в порядке возрастания цены в одну строчку через пробел.
+# смартфон:120000
+# яблоко:2
+# сумка:560
+# брюки:2500
+# линейка:10
+# бумага:500
+# Sample Output:  яблоко линейка бумага
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+d = dict((int(pair.split(':')[1]), pair.split(':')[0])  for pair in lst_in)
+def chpst3item(d):
+    """ """
+    return [value for key, value in sorted(d.items())][:3]
+
+# 9.7   Подвиг 2. На вход программы поступает строка в формате:
+# Веса предметов заданы целыми числами. Необходимо на основе этих данных сформировать словарь и, затем,
+# на основе этого словаря сформировать список предметов по убыванию их веса.
+# (В списке должны находиться только наименования предметов без их весов).
+# Отобразить полученный результат в виде строки с названиями через пробел.   # Sample Output:  котелок ножницы зеркальце зажигалка спички
+"""
+ножницы=100
+котелок=500
+спички=20
+зажигалка=40
+зеркальце=50
+"""
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+d = dict((int(pair.split('=')[-1]), pair.split('=')[0]) for pair in lst_in)
+items = [value for key, value in sorted(d.items(), reverse=True)]
+print(*items)
+
+d = dict((c.split('=') for c in open(0)))
+print(*sorted(d, key=lambda x: int(d[x]), reverse=True))
+
+print(*[x[0]
+        for x in sorted([x.split('=')
+                         for x in lst_in],
+                        key=lambda x: int(x[1]), reverse=True)])
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+print(sorted(dictionary.items(), key=lambda items: -items[1]))
+print(*(key for key, value in sorted(dictionary.items(), key=lambda x: x[1])))
+# 9.7   Подвиг 3. На вход программы поступает строка с набором этих нот, записанных через пробел.
+# Необходимо сформировать список из входной строки с нотами, отсортированными указанным образом.
+# Результат вывести в виде строки из нот, записанными через пробел.
+# Sample Input:  до фа соль до ре фа ля си   Sample Output:  до до ре фа фа соль ля си
+order = {'до': 1, 'ре': 2, 'ми': 3, 'фа': 4, 'соль': 5, 'ля': 6, 'си': 7}
+reply = input().split()
+res = sorted(reply, key=order.get)
+print(*res)
+
+s = 'до, ре, ми, фа, соль, ля, си'
+print(*sorted(input().split(), key=s.find))
+
+s = input()
+print(*sorted(s.split(), key='доремифасольляси'.find))
+
+# 9.7   Значимый подвиг 4. Имеется таблица с данными, представленная в формате:
+# Эти данные необходимо представить в виде двумерного (вложенного) кортежа. Все числа должны быть представлены как целые числа.
+# Затем, отсортировать данные так, чтобы столбцы шли в порядке: Имя;Зачет;Оценка;Номер
+# Реализовать эту операцию с помощью сортировки. Результат должен быть представлен также в виде двумерного кортежа и присвоен переменной с именем t_sorted.
+# Программа ничего не должна выводить на экран, только формировать двумерный кортеж с переменной t_sorted.      # Sample Output: True
+"""
+Номер;Имя;Оценка;Зачет
+1;Портос;5;Да
+2;Арамис;3;Да
+3;Атос;4;Да
+4;д'Артаньян;2;Нет
+5;Балакирев;1;Нет
+"""
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+print(lst_in)
+tpl = tuple(tuple((int(item) if item.isnumeric() else item) for item in line.split(';')) for line in lst_in)
+order = "Имя;Зачет;Оценка;Номер"
+t_sorted = tuple(zip(*sorted(zip(*tpl), key=lambda x: order.find(x[0]))))
+
+t_sorted = tuple([(line[1], line[3], line[2], line[0]) for line in tpl])
+
+tp = tuple([int(item) if item.isdigit() else item for item in line.split(';')] for line in lst_in)
+t_sorted = tuple(map(lambda x: (x[1], x[3], x[2], x[0]), tp))
+
+tp = tuple([int(item) if item.isdigit() else item for item in line.split(';')] for line in lst_in)
+t_sorted = tuple(map(lambda line: (line[1], line[3], line[2], line[0]), tp))
+
+# 9.7   Подвиг 5. Известно, что звания военнослужащих имеют следующий порядок:
+# рядовой, сержант, старшина, прапорщик, лейтенант, капитан, майор, подполковник, полковник
+# Необходимо входные данные представить в виде вложенного списка вида:
+# [['имя_1', 'звание_1'], ['имя_2', 'звание_2'], ..., ['имя_N', 'звание_N']]
+# Этот список присвоить переменной с именем lst. Затем, отсортировать его по возрастанию званий.
+# Выводить на экран ничего не нужно, только сформировать список и указать на него переменную lst.   # Sample Output: True
+'''
+Атос=лейтенант
+Портос=прапорщик
+д'Артаньян=капитан
+Арамис=лейтенант
+Балакирев=рядовой
+'''
+import sys
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+lst = sorted([line.split('=') for line in lst_in], key=lambda
+    x: 'рядовой, сержант, старшина, прапорщик, лейтенант, капитан, майор, подполковник, полковник'.find(x[1]))
+
+# 9.8   Подвиг 2. Определите функцию с именем get_add, которая складывает или два числа или две строки (но не число со строкой)
+# и возвращает полученный результат. Если сложение не может быть выполнено, то функция возвращает значение None.
+# Сигнатура функции должна быть, следующей: def get_add(a, b): ...Вызывать функцию не нужно, только определить. Также ничего не нужно выводить на экран.
+def get_add(a, b):
+    if  {type(a), type(b)} in ({str}, {int}, {float}, {int, float}):
+        return a + b
+
+def get_add(a, b):
+    if True not in (a, b):
+        try:
+            return a + b
+        except:
+            pass
+
+def get_add(a, b):
+    if type(a) in (int, float) and type(b) in (int, float) or type(a) == type(b) == str:
+        return a + b
+
+# 9.8   Подвиг 3. Определите функцию с именем get_sum, которая принимает на входе итерируемый объект
+# (список, строку, кортеж, словарь, множество) и вычисляет сумму только целых чисел, взятых из элементов итерируемого объекта.
+# Вычисленная сумма возвращается функцией. Если целых чисел нет, то возвращается 0.
+# Вызывать функцию не нужно, только определить. Также ничего не нужно выводить на экран.
+# get_sum([1,2,3, "a", True, [4, 5], "c", (4, 5)])
+# get_sum({5, 6, 7, '8', 5, '4'})
+# get_sum((10, "f", '33', True, 12))
+# get_sum(['1', True, False, (1, 23)])
+# P. S. Не забудьте про необходимость различения булевых значений (False, True) от целочисленных.
+
+def get_sum(itr):
+    return sum(x for x in itr if type(x) == int )
+
+def get_sum(it):
+    return sum(filter(lambda x: type(x) == int, it))
+
+get_sum = lambda x: sum(i for i in x if type(i) == int)
+
+####################
+print(sum([[1, 2], [3, 4], [5, 6]], [])) == print(sum(a, [])) == [1, 2, 3, 4, 5, 6]
+##########################
+# 9.8   Подвиг 4. Определите функцию с именем get_even_sum, которая принимает на входе итерируемый объект
+# (список, строку, кортеж, словарь, множество) и вычисляет сумму только целых четных чисел,
+# взятых из элементов итерируемого объекта. Результат возвращается функцией. Если целых чисел нет, то возвращается 0.
+# Вызывать функцию не нужно, только определить. Также ничего не нужно выводить на экран.
+# P. S. Не забудьте про необходимость различения булевых значений (False, True) от целочисленных.
+def get_even_sum(it):
+    """ """
+    return sum(value
+               if type(value) == int
+                  and not value % 2
+               else 0
+               for value in it )
+
+get_even_sum = lambda it: sum(filter(lambda x: type(x) == int and not x % 2, it)) # empty sum() return 0
+
+# 9.9   Подвиг 1. Вводится строка целых чисел через пробел. Необходимо определить, являются ли все эти числа четными.
+# Вывести True, если это так и False - в противном случае. Задачу реализовать с использованием одной из функций: any или all.
+# Sample Input: 2 4 6 8 22 56   Sample Output:True
+print(all(not x % 2 for x in map(int, input().split())))
+
+print(not any(int(i) % 2 for i in input().split()))
+
+is_string = lambda lst: all(isinstance(x, str) for x in lst)
+
+# 10.3   Подвиг 2. Вводятся два натуральных числа a, b (a < b) в одну строчку через пробел.
+# Выполните генерацию вещественной случайной величины в диапазоне [a; b). Округлите результат до сотых и выведите его на экран.
+# Sample Input: -4 5 Sample Output: -2.79
+import random
+random.seed(1)
+print(round(random.uniform(*map(float, input().split())), 2))
+
+print(f'{random.uniform(a, b):.2f}')
+
+# 10.3   Подвиг 3. Вводятся два натуральных числа a, b (a < b) в одну строчку через пробел.
+# Выполните генерацию целочисленной случайной величины в диапазоне [a; b]. Выведите результат на экран.
+#  Sample Input: -2 3   Sample Output: -1
+import random
+random.seed(1)
+print(random.randint(*map(int, input().split())))
+
+# 10.3   Подвиг 4. Вводится список названий городов в одну строчку через пробел.
+# Выберите из этого списка один город случайным образом и отобразите его на экране.
+# Sample Input:   Тула Казань Смоленск Семипалатинск Уфа Москва Самара     Sample Output:  Казань
+import random
+# установка "зерна" датчика случайных чисел, чтобы получались одни и те же случайные величины
+random.seed(1)
+print(random.choice(input().split()))
+
+# 10.3   Подвиг 5. Вводится таблица целых чисел, записанных через пробел. Необходимо перемешать столбцы этой таблицы,
+# используя функции shuffle и zip и вывести результат на экран (также в виде таблицы).
+"""
+1 2 3 4
+5 6 7 8
+9 8 6 7
+"""
+# Sample Output:
+# 4 1 3 2
+# 8 5 7 6
+# 7 9 6 8
+import sys
+import random
+random.seed(1)
+lst_in = list(map(str.strip, sys.stdin.readlines()))
+lst = list(zip(*map(str.split, lst_in)))
+random.shuffle(lst)
+[print(*i) for i in zip(*lst)]
+
+for i in lst_in:
+    random.seed(1)
+    random.shuffle(i)
+    print(*i)
+
+# 10.3   Подвиг 6. Вводятся имена студентов в одну строчку через пробел.
+# Требуется случайным образом выбрать трех студентов из этого списка, используя функцию sample.
+# (Полагается, что в исходном списке более трех студентов). Результат вывести на экран в одну строчку через пробел.
+# Sample Input: Петров Иванов Сидоров Балакирев Фридман    Sample Output: Иванов Петров Фридман
+import random
+random.seed(1)
+names = input().split()
+print(*random.sample(names, 3))
+
+# 10.3   Значимый подвиг 7. Имеется двумерное игровое поле размером N x N (N - натуральное число, вводится с клавиатуры),
+# представленное в виде вложенного списка: P = [[0] * N for i in range(N)]
+# Требуется расставить в нем случайным образом M = 10 единиц (целочисленных) так,
+# чтобы они не соприкасались друг с другом (то есть, вокруг каждой единицы должны быть нули, либо граница поля).
+# Sample Input: 10   Sample Output: True
+import random
+# установка "зерна" датчика случайных чисел, чтобы получались одни и те же случайные величины
+random.seed(1)
+# начальная инициализация поля (переменные P и N не менять, единицы записывать в список P)
+N = int(input())
+P = [[0] * N for i in range(N)]
+M=10
+while M:
+    row = random.randrange(0, N, 2)
+    item = random.randrange(0, N, 2)
+    if  P[row][item]  == 0:
+        P[row][item] = 1
+        M -= 1
+[print(*row) for row in P]
+
+#############################
+if n & 2:
+    print('even')
+elif n & 1:
+    print('odd')
+    ################################################
+#'not' bit operation        ~a    == minus 1 and change polarity
+# '&'    1 if both 1 else 0
+
+############################
+print(abs(-45//20))
+print(-(-45 // 20))
+print((45 + 19) // 20)
+#########################
+number if number else == number or
+#############################
+def series_sum(n):
+    return f'{sum(1 / d for d in range(1, n * 3, 3)):.2f}'
+################################
+def to_weird_case(words):
+    " "
+    words = words.split()
+    for word_index, word in enumerate(words):
+        new_word = list(map(str, word))
+        for letter_index, letter in enumerate(new_word):
+            if letter_index & 1:
+                new_word[letter_index] = letter.lower()
+            else:
+                new_word[letter_index] = letter.upper()
+        words[word_index] = "".join(new_word)
+    return " ".join(words)
+def to_weird_case(words):
+    return ' '.join(''.join(letter.lower() if letter_index & 1
+                            else letter.upper()
+                            for letter_index, letter in enumerate(word))
+                    for word in words.split())
+#############################################################
+def rev_rot(strng, size):
+    """  """
+    if size < 1 or len(strng) < 1:
+        return ""
+    _from = 0
+    _to = size
+    compare = size - 1
+    strings = []
+    while len(strng) > compare:
+        strings.append(strng[_from:_to])
+        _from = _to
+        _to += size
+        compare += size
+    for string_index, string in enumerate(strings):
+        if sum(int(number) ** 3 for number in string) % 2:
+            strings[string_index] = string[1:] + string[0]
+        else:
+            strings[string_index] = string[::-1]
+    return "".join(strings)
+def rev_rot(string, size):
+    """  """
+
+    def chunks(chunk):
+        """ """
+        return ''.join((chunk[::-1], chunk[1:] + chunk[:1])[sum(int(number) ** 3 for number in chunk) % 2])
+    return ''.join(map(chunks, zip(*[iter(string)] * size)))
+########################################################################
+def max_sequence(arr):
+    """   """
+    result = max(sum(arr[start:finish])
+                 for start in range(len(arr))
+                 for finish in range(start, len(arr) + 1) if start != finish) \
+        if len(arr) else 0
+    return (0, result)[result > 0]
+
+def max_sequence(arr):
+    """   """
+    result = 0
+    if len(arr):
+        for start in range(len(arr)):
+            for finish in range(start, len(arr) + 1):
+                if start != finish:
+                    if sum(arr[start:finish]) > result:
+                        result = sum(arr[start:finish])
+    return result
+def max_sequence(arr):
+    maximum = current = 0
+    for number in arr:
+        current += number
+        if current < 0:
+            current = 0
+        if current > maximum:
+            maximum = current
+    return maximum
+def max_sequence(arr):
+    current = maximum = 0
+    for number in arr:
+        current = max(0, current + number)
+        maximum = max(maximum, current)
+    return maximum
+#################################
+def productFib(prod):
+    """ """
+    previous = 0
+    following = 1
+    while following * previous < prod:
+        following, previous = following + previous, following
+    return [previous, following, following * previous == prod]
+print(productFib(714)) ### [21, 34, True]
+##############################################
+def perimeter(n):
+    """ https://www.codewars.com/kata/559a28007caad2ac4e000083/train/python"""
+    amount = previous = 0
+    following = 1
+    while n + 2:
+        amount += previous
+        previous, following = following, following + previous
+        n -= 1
+    return [previous , following, amount * 4]
+def perimeter(n):
+    """ https://www.codewars.com/kata/559a28007caad2ac4e000083/train/python"""
+    previous, following = 1, 2
+    for _ in range(n):
+        previous, following = following, previous + following
+    return 4 * (following - 1)
+###################################################
+def format_duration(seconds):
+    """499ms  TEST    ATTEMPT  586ms """
+    year, seconds = divmod(seconds, 60 * 60 * 24 * 365)
+    day, seconds = divmod(seconds, 60 * 60 * 24)
+    hour, seconds = divmod(seconds, 60 * 60)
+    minute, seconds = divmod(seconds, 60)
+    second = seconds
+    time_list = [str(number) + ' ' + interval + ("", 's')[number > 1]
+                 for number, interval
+                 in zip([year, day, hour, minute, second], ['year', 'day', 'hour', 'minute', 'second'])
+                 if number]
+    return ', '.join(
+        time_list[:-2] + [' and '.join(time_list[-2:])]
+    ) or 'now'
+######################################
+def permutations(string):
+    "test 508ms attempt 836ms"
+    result = set([string])
+    if len(string) == 2:
+        result.add(string[1] + string[0])
+    for index, word in enumerate(string):
+            for permutation in permutations(string[:index] + string[index + 1:]):
+                result.add(word + permutation)
+    return list(result)
+#############################################
+def decrypt(text, n):
+    if text:
+        mid = len(text) // 2
+        for _ in range(n):
+            text = ''.join(sum(zip(text[mid:], list(text[:mid]) + ['']), ()))
+    return text
+
+
+def encrypt(text, n):
+    if text:
+        for _ in range(n):
+            text = text[1::2] + text[::2]
+    return text
+#################################################
+float('inf') infinities float('-inf') -float('inf')
+#############################################
+""" 467ms     TEST 486ms   ATTEMPT"""
+args.append(float("inf"))
+sequence_meter, result = args[0], []
+for _2_, _3_ in zip(args, args[1:]):
+    if _3_ - _2_ > 1:
+        result.append((f"{sequence_meter}{(',', '-')[_2_ - sequence_meter > 1]}{_2_}",
+                       str(sequence_meter))[sequence_meter == _2_])
+        sequence_meter = _3_
+return ",".join(result)
+###################################################

@@ -12,40 +12,20 @@ class Solution(object):
         :type number: int
         :rtype: List[List[int]]
         """
-        matrix = [[0 for _ in range(number)] for _ in range(number)]
-        value = 1
-        k = row = item = 0
-
-        while value <= number ** 2:
-            matrix[row][item] = value
-            value += 1
-            if k % 4 == 0:
-                if item < number - k // 4 - 1:
-                    item += 1
-                else:
-                    row += 1
-                    k += 1
-            elif k % 4 == 1:
-                if row < number - 1 - k // 4:
-                    row += 1
-                else:
-                    item -= 1
-                    k += 1
-            elif k % 4 == 2:
-                if item > k // 4:
-                    item -= 1
-                else:
-                    row -= 1
-                    k += 1
-            elif k % 4 == 3:
-                if row > k // 4 + 1:
-                    row -= 1
-                else:
-                    item += 1
-                    k += 1
+        matrix = [[0] * number for _ in range(number)]
+        m = number >> 1
+        for i in range(m):
+            b = ~-number - 2 * i
+            for j in range(b):
+                number_i = number - i
+                xxx = number_i * i // 4 + -~j
+                matrix[i][i + j] = xxx
+                matrix[i + j][~-number_i] = xxx + b
+                matrix[~-number_i][~-number_i - j] = xxx + 2 * b
+                matrix[~-number_i - j][i] = xxx + 3 * b
+        if number - 2 * m:
+            matrix[m][m] = number ** 2
         return matrix
-
-
 
 
 print(Solution().generateMatrix(3))

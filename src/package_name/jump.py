@@ -4,15 +4,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        jump = nums[0]
-        for i in range(1, len(nums)):
-            if jump == 0:
+        jump = nums.pop(0)
+        for index in range(len(nums)):
+            if not jump:
                 return False
-            jump = max(~-jump, nums[i])
+            jump = max(~-jump, nums[index])
+
         return True
-
-
-class TestSearchInsert:
-
-    def test_1(self):
-        assert Solution().canJump([2, 3, 1, 1, 4]) is True

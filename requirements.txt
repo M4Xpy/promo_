@@ -1,0 +1,18 @@
+scikit-learn
+tox
+black
+isort
+-e .
+
+
+
+
+example only
+openai~=0.27.6
+googletrans~=3.0.0
+keyboard~=0.13.5
+pyperclip~=1.8.2
+pyglet~=2.0.6
+mouse~=0.7.1
+gTTS~=2.3.2
+setuptools~=67.6.1

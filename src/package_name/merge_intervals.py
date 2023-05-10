@@ -25,17 +25,14 @@ class Solution(object):
         :type intervals: List[List[int]]
         :rtype: List[List[int]]
         """
-        if len(intervals):
-            intervals = sorted(intervals, key=lambda x: x[0])
-            res = [intervals.pop(0)]
-
-            for first, last in intervals:
-                if first <= res[-1][1]:
-                    res[-1][1] = max(last, res[-1][1])
-                else:
-                    res.append([first, last])
-            return res
-        return intervals
+        intervals.sort(key=lambda pair: pair[0])
+        out = [intervals.pop(0)]
+        for pair in intervals:
+            if pair[0] <= out[-1][1]:
+                out[-1][1] = max(out[-1][1], pair[1])
+            else:
+                out += [pair]
+        return out
 
     # print(Solution().merge(
 
